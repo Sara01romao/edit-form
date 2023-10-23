@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+
+
+
+
+    
+    <select name="tipo" id="tipo">
+        <option value="">Selecione</option>
+        <option value="um">Um</option>
+        <option value="dois">Dois</option>
+        <option value="tres">Três</option>
+    </select>
+
+
+
+     <div class="option-container">
+
+        <div class="">
+            <div>
+                <label for="">Adicionar</label>
+                <input type="text" name="novo-option" id="input-option">
+            </div>
+
+            <button type="button" class="add-option">Adicionar</button>
+            
+        </div>
+         
+
+
+
+        <div class="option-lista">
+           <h4>Lista</h4>
+           
+           <div class="option-item">
+              <input  type='text' id='valorInput' name='valor' value="item3">
+
+              <div class="btns-option">
+                
+                <button class="remove-option">Remover</button>
+              </div>
+           </div>
+
+           <div class="option-item">
+              <input  type='text' id='valorInput' name='valor' value="item3">
+
+              <div class="btns-option">
+                
+                <button class="remove-option">Remover</button>
+              </div>
+           </div>
+
+        
+
+
+           <div class="option-item">
+              <input  type='text' id='valorInput' name='valor' value="item3">
+
+              <div class="btns-option">
+                <!-- <button class="editar-option">Editar</button> -->
+                <button class="remove-option">Remover</button>
+              </div>
+
+
+           </div>
+
+        </div>
+
+
+     </div>
+
+        
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+
+
+    <script>
+        $('#tipo').on('change', function() {
+            console.log( this.value );
+
+            if(this.value == "tres"){
+                console.log( "Lista" );
+
+                $('.option-container').css('display', 'block');
+
+            }else{
+                $('.option-container').css('display', 'none');
+                //$('.option-item').remove()
+
+            }
+        });
+
+
+       
+
+      
+
+        $('.add-option').on("click", function(){
+            
+            var option= $('#input-option').val();
+
+            if(!option){
+                console.log('vazio');
+
+            }else{
+                console.log(option)
+
+                var novoItem = document.createElement('div');
+                novoItem.classList.add('option-item')
+            
+                // Conteúdo HTML do novo item
+                novoItem.innerHTML = `
+                        <input  type='text' id='valorInput' name='valor' value="${option}">
+
+                        <div class="btns-option">
+                            <button type="button" class="remove-option">Remover</button>
+                        </div>
+                `;
+
+
+                $('.option-lista').append(novoItem);
+                $('#input-option').val('');
+            }
+             
+            
+            
+            
+
+             
+
+            
+        })
+
+        $('.remove-option').on("click", function(){
+            $(this).closest('.option-item').remove()
+            console.log('teste')
+
+            
+        })
+    </script>
+
+
+</body>
+</html>

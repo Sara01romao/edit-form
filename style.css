@@ -1,0 +1,22 @@
+
+.option-container{
+    display: none;
+}
+
+.option-lista{
+    max-width: 500px;
+
+}
+.option-item{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    margin: 10px 0px;
+}
+
+
+#valorInput{
+    border:none;
+    border-bottom: 1px solid grey;
+}
