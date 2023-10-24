@@ -10,21 +10,30 @@
     
 
 
+  <form action="" class="form-cria-campo">
 
-
+  
+    <div class="campo-input">
+        <label for="">Nome do campo</label>
+        <input type="text">
+    </div>
     
-    <select name="tipo" id="tipo">
-        <option value="">Selecione</option>
-        <option value="um">Um</option>
-        <option value="dois">Dois</option>
-        <option value="tres">Três</option>
-    </select>
+    <div class="campo-input">
+         <label for="">Selecione o tipo</label>
+        <select name="tipo" id="tipo">
+            <option value="">Selecione</option>
+            <option value="um">Um</option>
+            <option value="dois">Dois</option>
+            <option value="tres">Três</option>
+        </select>
+    </div>
+   
 
 
 
      <div class="option-container">
-
-        <div class="">
+         
+        <div class="input-criar-option">
             <div>
                 <label for="">Adicionar</label>
                 <input type="text" name="novo-option" id="input-option">
@@ -40,21 +49,14 @@
         <div class="option-lista">
            <h4>Lista</h4>
            
+           
+
            <div class="option-item">
-              <input  type='text' id='valorInput' name='valor' value="item3">
+              <input  type='text'  name='item3' value="item3">
 
               <div class="btns-option">
                 
-                <button class="remove-option">Remover</button>
-              </div>
-           </div>
-
-           <div class="option-item">
-              <input  type='text' id='valorInput' name='valor' value="item3">
-
-              <div class="btns-option">
-                
-                <button class="remove-option">Remover</button>
+                <button type="button" class="remove-option">Remover</button>
               </div>
            </div>
 
@@ -62,11 +64,11 @@
 
 
            <div class="option-item">
-              <input  type='text' id='valorInput' name='valor' value="item3">
+              <input  type='text'  name='valor' value="item3">
 
               <div class="btns-option">
                 <!-- <button class="editar-option">Editar</button> -->
-                <button class="remove-option">Remover</button>
+                <button type="button" class="remove-option">Remover</button>
               </div>
 
 
@@ -77,7 +79,9 @@
 
      </div>
 
-        
+
+       <button type="button" class="salvar-campo">Salvar</button>
+    </form>
     
 
 
@@ -100,6 +104,7 @@
 
             }
         });
+       
 
 
        
@@ -121,10 +126,10 @@
             
                 // Conteúdo HTML do novo item
                 novoItem.innerHTML = `
-                        <input  type='text' id='valorInput' name='valor' value="${option}">
+                        <input  type='text'  name='${option}' value="${option}">
 
                         <div class="btns-option">
-                            <button type="button" class="remove-option">Remover</button>
+                            <button type='button'  class="remove-option">Remover</button>
                         </div>
                 `;
 
@@ -134,20 +139,25 @@
             }
              
             
-            
-            
-
-             
-
-            
         })
+        
 
-        $('.remove-option').on("click", function(){
+       
+
+        $('.option-lista').on("click", ".remove-option", function(){
             $(this).closest('.option-item').remove()
-            console.log('teste')
+            console.log('removeu')
+        });
+        
+
+
+        $('.salvar-campo').on('click', function() {
+            console.log('save')
 
             
-        })
+        });
+
+        
     </script>
 
 

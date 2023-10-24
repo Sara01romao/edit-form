@@ -1,6 +1,6 @@
 
 .option-container{
-    display: none;
+    display: block;
 }
 
 .option-lista{
@@ -19,4 +19,24 @@
 #valorInput{
     border:none;
     border-bottom: 1px solid grey;
+}
+
+
+.campo-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-cria-campo{
+    border: 1px solid red;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 10px;
+}
+
+.input-criar-option{
+    display: flex;
 }
