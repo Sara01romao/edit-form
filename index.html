@@ -142,7 +142,7 @@
                 
             }
              
-            //verifca qtd de option
+            //verifica qtd de option
             if($('.option-lista').find('.option-item').length !== 0){
               
                $('.msg-option').css('display','none')
@@ -156,7 +156,8 @@
         $('.option-lista').on("click", ".remove-option", function(){
             $(this).closest('.option-item').remove()
             console.log('removeu')
-
+           
+           //verifica qtd de option
            if($('.option-lista').find('.option-item').length == 0){
                console.log($('.option-lista').find('.option-item').length, "qtd")
 
@@ -168,7 +169,7 @@
 
         $('.salvar-campo').on('click', function() {
             console.log('save')
-
+            
             
         });
 
