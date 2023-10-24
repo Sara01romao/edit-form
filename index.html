@@ -32,10 +32,9 @@
 
 
      <div class="option-container">
-         
         <div class="input-criar-option">
-            <div>
-                <label for="">Adicionar</label>
+            <div class="input-add-option">
+                <label for="">Cria opção</label>
                 <input type="text" name="novo-option" id="input-option">
             </div>
 
@@ -49,7 +48,9 @@
         <div class="option-lista">
            <h4>Lista</h4>
            
-           
+           <div class="msg-option">
+               <p>Adicione opções</p>
+           </div>
 
            <div class="option-item">
               <input  type='text'  name='item3' value="item3">
@@ -136,17 +137,31 @@
 
                 $('.option-lista').append(novoItem);
                 $('#input-option').val('');
+
+
+                
             }
              
+            //verifca qtd de option
+            if($('.option-lista').find('.option-item').length !== 0){
+              
+               $('.msg-option').css('display','none')
+            }
             
         })
         
 
        
-
+        //remover option
         $('.option-lista').on("click", ".remove-option", function(){
             $(this).closest('.option-item').remove()
             console.log('removeu')
+
+           if($('.option-lista').find('.option-item').length == 0){
+               console.log($('.option-lista').find('.option-item').length, "qtd")
+
+               $('.msg-option').css('display','flex')
+           }
         });
         
 

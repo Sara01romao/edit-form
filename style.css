@@ -1,4 +1,21 @@
 
+
+.input-criar-option{
+    display: flex;
+    align-items: flex-end;
+    
+}
+
+.input-criar-option button{
+    height: 21px;
+}
+
+.input-add-option{
+    display: flex;
+    flex-direction: column;
+}
+
+
 .option-container{
     display: block;
 }
@@ -37,6 +54,14 @@
     padding: 10px;
 }
 
-.input-criar-option{
-    display: flex;
+
+
+
+.msg-option{
+    border: 1px dashed grey;
+    max-width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+
 }
