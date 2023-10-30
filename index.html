@@ -15,12 +15,12 @@
   
     <div class="campo-input">
         <label for="">Nome do campo</label>
-        <input type="text">
+        <input type="text" name="nome-campo" id="nome-campo" required>
     </div>
     
     <div class="campo-input">
          <label for="">Selecione o tipo</label>
-        <select name="tipo" id="tipo">
+        <select name="tipo" id="tipo-campo">
             <option value="">Selecione</option>
             <option value="um">Um</option>
             <option value="dois">Dois</option>
@@ -53,7 +53,7 @@
            </div>
 
            <div class="option-item">
-              <input  type='text'  name='item3' value="item3">
+              <input  type='text'  name='item3' value="item1">
 
               <div class="btns-option">
                 
@@ -82,7 +82,11 @@
 
 
        <button type="button" class="salvar-campo">Salvar</button>
-    </form>
+  </form>
+
+
+
+  <form action="" id="novo-form"></form>
     
 
 
@@ -91,7 +95,7 @@
 
 
     <script>
-        $('#tipo').on('change', function() {
+        $('#tipo-campo').on('change', function() {
             console.log( this.value );
 
             if(this.value == "tres"){
@@ -168,7 +172,85 @@
 
 
         $('.salvar-campo').on('click', function() {
-            console.log('save')
+            
+
+            var tipo_campo = document.getElementById('tipo-campo').value;
+            var nome_campo = document.getElementById('nome-campo').value;
+            
+
+            if(tipo_campo == "tres"){
+
+                
+                var inputs = document.querySelectorAll(".option-item input");
+                var lista_opcoes = [];
+
+               
+
+                for (var i = 0; i < inputs.length; i++) {
+                    lista_opcoes.push(inputs[i].value);
+                }
+
+                if(lista_opcoes != 0){
+                    var novoSelect = document.createElement('div');
+                    novoSelect.classList.add('novoCampo')
+                
+                    // Conteúdo HTML do novo item
+ 
+                    var opcoesHTML = lista_opcoes.map(item => `<option value="${item}">${item}</option>`).join('');
+                    
+                    novoSelect.innerHTML = `
+                        <div>
+                            <label >${nome_campo}</label>
+                            <div>
+                                <button type='button' class='editar-campo'>Editar</button>
+                                <button type='button' class='remove-campo'> X</button>
+                            </div>
+                        </div>
+                         <select name='${nome_campo}'>
+                            ${opcoesHTML}
+                          </select>
+
+                            
+                    `;
+                     
+                
+
+                    $('#novo-form').append(novoSelect);
+                    
+
+                }
+
+               
+
+
+
+            }else if(tipo_campo == "um"){
+
+                   var novoInput = document.createElement('div');
+                    novoInput.classList.add('novoCampo')
+                
+                    // Conteúdo HTML do novo item
+ 
+                    
+                    novoInput.innerHTML = `
+                        <div>
+                            <label >${nome_campo}</label>
+                            <div>
+                                <button type='button' class='editar-campo'>Editar</button>
+                                <button type='button' class='remove-campo'> X</button>
+                            </div>
+                        </div>
+                         <input name='${nome_campo}'>
+
+                            
+                    `;
+                     
+                
+
+                    $('#novo-form').append(novoInput);
+            }
+
+            
             
             
         });
