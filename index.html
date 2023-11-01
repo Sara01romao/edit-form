@@ -203,7 +203,7 @@
                             <label >${nome_campo}</label>
                             <div>
                                 <button type='button' class='editar-campo'>Editar</button>
-                                <button type='button' class='remove-campo'> X</button>
+                                <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
                             </div>
                         </div>
                          <select name='${nome_campo}'>
@@ -236,8 +236,8 @@
                         <div>
                             <label >${nome_campo}</label>
                             <div>
-                                <button type='button' class='editar-campo'>Editar</button>
-                                <button type='button' class='remove-campo'> X</button>
+                                <button type='button' class='editar-campo' onclick='editarCampo(this)'>Editar</button>
+                                <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
                             </div>
                         </div>
                          <input name='${nome_campo}'>
@@ -256,6 +256,11 @@
         });
 
         
+
+        function removerCampo(button) {
+            const campoContainer = button.closest(".novoCampo");
+            campoContainer.remove();
+        }
     </script>
 
 

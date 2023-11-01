@@ -1,4 +1,42 @@
 
+/*form*/
+
+#novo-form{
+    max-width:600px;
+    width: 100%;
+    margin: 0 auto;
+
+    border: 1px solid  blue;
+
+    padding: 20px;
+
+}
+
+.novoCampo{
+    width: 100%;
+    border: 1px solid  rgb(0, 217, 255);
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.novoCampo div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.novoCampo input, .novoCampo select{
+    width: 100%;
+}
+
+
+
+/*modal adiciona*/
+
 
 .input-criar-option{
     display: flex;
