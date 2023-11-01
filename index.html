@@ -266,6 +266,9 @@
                 if(lista_opcoes != 0){
                     var novoSelect = document.createElement('div');
                     novoSelect.classList.add('novoCampo')
+
+                    var novoCampoId = 'campo_' + Date.now();
+                    novoSelect.id=novoCampoId;
                 
                     // Conteúdo HTML do novo item
  
