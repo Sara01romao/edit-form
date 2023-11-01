@@ -4,7 +4,7 @@
 #novo-form{
     max-width:600px;
     width: 100%;
-    margin: 0 auto;
+    margin: 50px auto;
 
     border: 1px solid  blue;
 
@@ -103,3 +103,19 @@
     justify-content: center;
 
 }
+
+
+
+
+/* editar campo */
+
+.form-edit-campo{
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    border: 2px solid green;
+    padding: 20px;
+
+    margin-top: 50px;
+}
+
