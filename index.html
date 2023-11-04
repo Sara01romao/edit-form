@@ -87,7 +87,7 @@
 
 
   <form action="" id="novo-form">
-    <div class="novoCampo">
+    <div class="novoCampo" id="campo_0">
         <div>
             <label>listas</label>
             <div>
@@ -113,6 +113,7 @@
     <div class="campo-input">
         <label for="">Nome do campo</label>
         <input type="text" name="nome-campo" id="nome-campo-edit" required>
+        <input type="text" name="id-campo" id="id-campo" disabled="disabled">
     </div>
     
     <div class="campo-input">
@@ -345,7 +346,10 @@
 
         function editarCampo(button) {
             const campoContainer = $(button).closest(".novoCampo");
+            var idCampo = campoContainer.attr('id');
             const selectElement = campoContainer.find("select");
+
+            $('#id-campo ').attr('value', idCampo);
 
             if (selectElement.length > 0) {
                 
@@ -475,7 +479,9 @@
 
             var tipo_campo = document.getElementById('tipo-campo-edit').value;
             var nome_campo = document.getElementById('nome-campo-edit').value;
-            
+            var id_campo = document.getElementById('id-campo').value;
+
+            console.log(id_campo)
 
             if(tipo_campo == "tres"){
 
@@ -491,7 +497,8 @@
 
                 if(lista_opcoes != 0){
                     var novoSelect = document.createElement('div');
-                    novoSelect.classList.add('novoCampo')
+                    novoSelect.classList.add('novoCampo');
+                    novoSelect.id=id_campo;
                 
                     // Conteúdo HTML do novo item
  
@@ -512,9 +519,11 @@
                             
                     `;
                      
-                
+                     
 
-                    $('#novo-form').append(novoSelect);
+                    $('#novo-form').find('#'+id_campo).replaceWith(novoSelect);
+                    //$('#novo-form').append(novoSelect);
+                    
                     
 
                 }
