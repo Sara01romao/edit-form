@@ -455,7 +455,18 @@
         })
 
 
-        
+          //remover option
+          $('.option-lista-edit').on("click", ".remove-option", function(){
+            $(this).closest('.option-item').remove()
+            console.log('removeu')
+            
+            //verifica qtd de option
+            if($('.option-lista').find('.option-item').length == 0){
+                console.log($('.option-lista').find('.option-item').length, "qtd")
+
+               // $('.msg-option').css('display','flex')
+            }
+        });
         
         
 
@@ -469,7 +480,7 @@
             if(tipo_campo == "tres"){
 
                 
-                var inputs = document.querySelectorAll(".option-item input");
+                var inputs = document.querySelectorAll(".option-lista-edit .option-item input");
                 var lista_opcoes = [];
 
                
