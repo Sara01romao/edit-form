@@ -349,18 +349,19 @@
             var idCampo = campoContainer.attr('id');
             const selectElement = campoContainer.find("select");
 
-            $('#id-campo ').attr('value', idCampo);
+            
+            var select_name = selectElement.attr('name');
+
+            $('.form-edit-campo #nome-campo-edit ').val(select_name );
+            $('#id-campo').val(idCampo);
+            
+            console.log('edit info', idCampo, select_name)
 
             if (selectElement.length > 0) {
                 
 
-                var select_name = selectElement.attr('name');
-
-                $('.form-edit-campo #nome-campo-edit ').attr('value', select_name );
-
-                
+              
                 $('.form-edit-campo #tipo-campo-edit').val("tres").change();
-
 
                 
                 var option_campo_edit = selectElement.find("option");
@@ -481,7 +482,7 @@
             var nome_campo = document.getElementById('nome-campo-edit').value;
             var id_campo = document.getElementById('id-campo').value;
 
-            console.log(id_campo)
+            console.log(tipo_campo, id_campo, nome_campo)
 
             if(tipo_campo == "tres"){
 
@@ -524,18 +525,23 @@
                     $('#novo-form').find('#'+id_campo).replaceWith(novoSelect);
                     //$('#novo-form').append(novoSelect);
                     
+                    // Limpe os campos após a edição e o salvamento
+                    $('#nome-campo-edit').val('');
+                    $('#id-campo').val('');
+                    $('#tipo-campo-edit').val('');
+                    $('.option-lista-edit .option-item').remove();
                     
 
                 }
 
                
-
+                     
 
 
             }
 
             
-            
+                    
             
         });
     </script>
