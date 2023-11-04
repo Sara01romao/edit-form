@@ -112,12 +112,12 @@
   
     <div class="campo-input">
         <label for="">Nome do campo</label>
-        <input type="text" name="nome-campo" id="nome-campo" required>
+        <input type="text" name="nome-campo" id="nome-campo-edit" required>
     </div>
     
     <div class="campo-input">
          <label for="">Selecione o tipo</label>
-        <select name="tipo" id="tipo-campo">
+        <select name="tipo" id="tipo-campo-edit">
             <option value="">Selecione</option>
             <option value="um">Um</option>
             <option value="dois">Dois</option>
@@ -132,17 +132,17 @@
         <div class="input-criar-option">
             <div class="input-add-option">
                 <label for="">Cria opção</label>
-                <input type="text" name="novo-option" id="input-option">
+                <input type="text" name="novo-option" id="input-option-edit">
             </div>
 
-            <button type="button" class="add-option">Adicionar</button>
+            <button type="button" class="add-option-edit">Adicionar</button>
             
         </div>
          
 
 
 
-        <div class="option-lista editar-campo">
+        <div class="option-lista-edit editar-campo">
            <h4>Lista</h4>
            
            <div class="msg-option">
@@ -233,13 +233,13 @@
         $('.option-lista').on("click", ".remove-option", function(){
             $(this).closest('.option-item').remove()
             console.log('removeu')
-           
-           //verifica qtd de option
-           if($('.option-lista').find('.option-item').length == 0){
-               console.log($('.option-lista').find('.option-item').length, "qtd")
+            
+            //verifica qtd de option
+            if($('.option-lista').find('.option-item').length == 0){
+                console.log($('.option-lista').find('.option-item').length, "qtd")
 
-               $('.msg-option').css('display','flex')
-           }
+                $('.msg-option').css('display','flex')
+            }
         });
         
 
@@ -331,7 +331,8 @@
             
         });
 
-        
+//-----------------REMOVER-----------------------------------------------------------
+       
         //remove campo
         function removerCampo(button) {
             const campoContainer = button.closest(".novoCampo");
@@ -339,6 +340,8 @@
         }
 
 
+
+//-----------------EDITAR-----------------------------------------------------------
 
         function editarCampo(button) {
             const campoContainer = $(button).closest(".novoCampo");
@@ -349,10 +352,10 @@
 
                 var select_name = selectElement.attr('name');
 
-                $('.form-edit-campo #nome-campo ').attr('value', select_name );
+                $('.form-edit-campo #nome-campo-edit ').attr('value', select_name );
 
                 
-                $('.form-edit-campo #tipo-campo').val("tres").change();
+                $('.form-edit-campo #tipo-campo-edit').val("tres").change();
 
 
                 
@@ -391,7 +394,7 @@
                         `;
 
                     
-                    $('.option-lista.editar-campo').append(optionItem);
+                    $('.option-lista-edit.editar-campo').append(optionItem);
 
 
                 });
@@ -410,15 +413,57 @@
 
             $(campoContainer).css('background', 'red');
         }
+        
 
+
+        $('.add-option-edit').on("click", function(){
+            
+            var option= $('#input-option-edit').val();
+
+            if(!option){
+                console.log('vazio');
+
+            }else{
+                console.log(option)
+
+                var novoItem = document.createElement('div');
+                novoItem.classList.add('option-item')
+            
+                // Conteúdo HTML do novo item
+                novoItem.innerHTML = `
+                        <input  type='text'  name='${option}' value="${option}">
+
+                        <div class="btns-option">
+                            <button type='button'  class="remove-option">Remover</button>
+                        </div>
+                `;
+
+
+                $('.option-lista-edit').append(novoItem);
+                $('#input-option-edit').val('');
+
+
+                
+            }
+             
+            //verifica qtd de option
+            if($('.option-lista').find('.option-item').length !== 0){
+              
+               $('.msg-option').css('display','none')
+            }
+            
+        })
+
+
+        
         
         
 
         $('.salvar-campo-edit').on('click', function() {
             
 
-            var tipo_campo = document.getElementById('tipo-campo').value;
-            var nome_campo = document.getElementById('nome-campo').value;
+            var tipo_campo = document.getElementById('tipo-campo-edit').value;
+            var nome_campo = document.getElementById('nome-campo-edit').value;
             
 
             if(tipo_campo == "tres"){
