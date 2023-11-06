@@ -99,13 +99,50 @@
         <div>
             <label>listas</label>
             <div>
-                <button type="button" class="editar-campo" onclick='editarCampo(this)'>Editar</button>
+                <button type="button" class="editar-campo" onclick='editarCampo(this)'>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"></path>
+                    </svg>
+                </button>
                 <button type="button" class="remove-campo" onclick="removerCampo(this)"> X</button>
             </div>
         </div>
          <select name="listas">
             <option value="item1">item1</option><option value="item3">item3</option>
           </select>
+
+            
+    </div>
+
+    <div class="novoCampo" id="campo_1699287220905">
+        <div>
+            <label>Nome</label>
+            <div>
+                <button type="button" class="editar-campo" onclick="editarCampo(this)">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"></path>
+                    </svg>
+                </button>
+                <button type="button" class="remove-campo" onclick="removerCampo(this)"> X</button>
+            </div>
+        </div>
+        <input name="Nome">
+
+            
+    </div>
+
+
+    <div class="novoCampo" id="campo_1699288771532">
+        <div>
+            <label>msg</label>
+            
+            <div>
+                <button type="button" class="editar-campo" onclick="editarCampo(this)">Editar</button>
+                <button type="button" class="remove-campo" onclick="removerCampo(this)"> X</button>
+            </div>
+        </div>
+        
+        <textarea name="msg" style=""></textarea>
 
             
     </div>
@@ -121,6 +158,7 @@
     <div class="campo-input">
         <label for="">Nome do campo</label>
         <input type="text" name="nome-campo" id="nome-campo-edit" required>
+        <small class="erro-campo">Preencha o campo</small>
         <input type="text" name="id-campo" id="id-campo" disabled="disabled">
     </div>
     
@@ -388,7 +426,11 @@
                             <label >${nome_campo}</label>
                             
                             <div>
-                                <button type='button' class='editar-campo' onclick='editarCampo(this)'>Editar</button>
+                                <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
+                                    </svg>    
+                                </button>
                                 <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
                             </div>
                         </div>
@@ -431,18 +473,19 @@
             const campoContainer = $(button).closest(".novoCampo");
             var idCampo = campoContainer.attr('id');
             const selectElement = campoContainer.find("select");
-
             
-            var select_name = selectElement.attr('name');
-
-            $('.form-edit-campo #nome-campo-edit ').val(select_name );
+            const inputElement = campoContainer.find("input");
+            const textareaElement = campoContainer.find("textarea");
+              
+            
             $('#id-campo').val(idCampo);
             
-            console.log('edit info', idCampo, select_name)
+            
 
             if (selectElement.length > 0) {
                 
-
+                var select_name = selectElement.attr('name');
+                $('.form-edit-campo #nome-campo-edit ').val(select_name );
               
                 $('.form-edit-campo #tipo-campo-edit').val("tres").change();
 
@@ -476,7 +519,7 @@
 
                                 <div class="btns-option">
                                     
-                                    <button type="button" class="remove-option">Remover</button>
+                                    <button type="button" class="remove-option">x</button>
                                 </div>
                                 
                         `;
@@ -485,21 +528,40 @@
                     $('.option-lista-edit.editar-campo').append(optionItem);
 
 
+
+
+
                 });
 
+                  //verifica qtd de option
+                if($('.option-lista-edit').find('.option-item').length !== 0){
+                
+                    $('.msg-option').css('display','none')
+                }
+
 
                 
                 
 
 
-            } else {
-                console.log("O .novoCampo NÃO contém um elemento <select>.");
+            } else if(inputElement.length > 0){
+                var input_name = inputElement.attr('name');
+                $('.form-edit-campo #nome-campo-edit ').val(input_name );
+              
+                $('.form-edit-campo #tipo-campo-edit').val("um").change();
+
+            }else if(textareaElement.length > 0){
+                var textarea_name = textareaElement.attr('name');
+                $('.form-edit-campo #nome-campo-edit ').val(textarea_name);
+              
+                $('.form-edit-campo #tipo-campo-edit').val("dois").change();
+
             }
                         
             
 
 
-            $(campoContainer).css('background', 'red');
+            
         }
         
 
@@ -534,11 +596,7 @@
                 
             }
              
-            //verifica qtd de option
-            if($('.option-lista').find('.option-item').length !== 0){
-              
-               $('.msg-option').css('display','none')
-            }
+           
             
         })
 
@@ -558,6 +616,23 @@
         
         
 
+        $('#tipo-campo-edit').on('change', function() {
+            console.log( this.value );
+
+            if(this.value == "tres"){
+                console.log( "Lista" );
+
+                $('.option-container').css('display', 'block');
+
+            }else{
+                $('.option-container').css('display', 'none');
+                //$('.option-item').remove()
+
+            }
+        });
+
+
+
         $('.salvar-campo-edit').on('click', function() {
             
 
@@ -566,65 +641,139 @@
             var id_campo = document.getElementById('id-campo').value;
 
             console.log(tipo_campo, id_campo, nome_campo)
+           
+            if(nome_campo !== ''){
 
-            if(tipo_campo == "tres"){
+                    if(tipo_campo == "tres"){
 
-                
-                var inputs = document.querySelectorAll(".option-lista-edit .option-item input");
-                var lista_opcoes = [];
+                        
+                        var inputs = document.querySelectorAll(".option-lista-edit .option-item input");
+                        var lista_opcoes = [];
 
-               
-
-                for (var i = 0; i < inputs.length; i++) {
-                    lista_opcoes.push(inputs[i].value);
-                }
-
-                if(lista_opcoes != 0){
-                    var novoSelect = document.createElement('div');
-                    novoSelect.classList.add('novoCampo');
-                    novoSelect.id=id_campo;
-                
-                    // Conteúdo HTML do novo item
- 
-                    var opcoesHTML = lista_opcoes.map(item => `<option value="${item}">${item}</option>`).join('');
                     
-                    novoSelect.innerHTML = `
-                        <div>
-                            <label >${nome_campo}</label>
-                            <div>
-                                <button type='button' class='editar-campo' onclick='editarCampo(this)'>Editar</button>
-                                <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
-                            </div>
-                        </div>
-                         <select name='${nome_campo}'>
-                            ${opcoesHTML}
-                          </select>
+
+                        for (var i = 0; i < inputs.length; i++) {
+                            lista_opcoes.push(inputs[i].value);
+                        }
+
+                        if(lista_opcoes != 0){
+                            var novoSelect = document.createElement('div');
+                            novoSelect.classList.add('novoCampo');
+                            novoSelect.id=id_campo;
+                        
+                            // Conteúdo HTML do novo item
+        
+                            var opcoesHTML = lista_opcoes.map(item => `<option value="${item}">${item}</option>`).join('');
+                            
+                            novoSelect.innerHTML = `
+                                <div>
+                                    <label >${nome_campo}</label>
+                                    <div>
+                                        <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
+                                            </svg>
+                                        </button>
+                                        <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                    </div>
+                                </div>
+                                <select name='${nome_campo}'>
+                                    ${opcoesHTML}
+                                </select>
+
+                                    
+                            `;
+                            
+                            
+
+                            $('#novo-form').find('#'+id_campo).replaceWith(novoSelect);
+                            //$('#novo-form').append(novoSelect);
+                            
+                            
+                            
+
+                        }
+
+                    
+                            
+
+
+                    }else if(tipo_campo == "um"){
+
+                        var novoInput = document.createElement('div');
+                            novoInput.classList.add('novoCampo');
+
+                            var novoCampoId = 'campo_' + Date.now();
+                            novoInput.id=novoCampoId;
+
+
+                            // Conteúdo HTML do novo item
 
                             
-                    `;
-                     
-                     
+                            novoInput.innerHTML = `
+                                <div>
+                                    <label >${nome_campo}</label>
+                                    <div>
+                                        <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
+                                            </svg>
+                                        </button>
+                                        <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                    </div>
+                                </div>
+                                <input name='${nome_campo}'>
 
-                    $('#novo-form').find('#'+id_campo).replaceWith(novoSelect);
-                    //$('#novo-form').append(novoSelect);
+                                    
+                            `;
+                            
+
+                            $('#novo-form').find('#'+id_campo).replaceWith(novoInput);
+
+                    }else if(tipo_campo == "dois"){
+
+                        var novoTextarea = document.createElement('div');
+                        novoTextarea.classList.add('novoCampo');
+                        var novoCampoId = 'campo_' + Date.now();
+                            novoTextarea.id=novoCampoId;
+
+                        // Conteúdo HTML do novo item
+
+
+                        novoTextarea.innerHTML = `
+                            <div>
+                                <label >${nome_campo}</label>
+                                
+                                <div>
+                                    <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
+                                        </svg>    
+                                    </button>
+                                    <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                </div>
+                            </div>
+                            
+                            <textarea name='${nome_campo}'></textarea>
+
+                                
+                        `;
+
+
+                        $('#novo-form').find('#'+id_campo).replaceWith(novoTextarea);
+                    }
+
                     
                     // Limpe os campos após a edição e o salvamento
                     $('#nome-campo-edit').val('');
                     $('#id-campo').val('');
                     $('#tipo-campo-edit').val('');
+                    $('#nome-campo-edit').next("small").css('display', 'none')
                     $('.option-lista-edit .option-item').remove();
-                    
-
-                }
-
+            }else{
+                $('#nome-campo-edit').next("small").css('display', 'block')
                
-                     
-
-
             }
-
-            
-                    
             
         });
     </script>

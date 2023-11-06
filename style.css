@@ -11,6 +11,10 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
+.erro-campo{
+    color: red;
+    display: none;
+}
 
 /*form*/
 
@@ -74,6 +78,9 @@ body{
     padding: 0px 5px;
 }
 
+.novoCampo textarea{
+    height: 100px;
+}
 
 
 /*modal adiciona*/
