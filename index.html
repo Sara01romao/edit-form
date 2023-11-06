@@ -9,84 +9,92 @@
 <body>
     
 
+ <div class="modal-criar-campo">
+    <div class="modal-campo-container">
+        <button class="close-modal-add">x</button>
+        
+        <h2>title</h2>
 
-  <form action="" class="form-cria-campo">
-
-  
-    <div class="campo-input">
-        <label for="">Nome do campo</label>
-        <input type="text" name="nome-campo" id="nome-campo" required>
-    </div>
-    
-    <div class="campo-input">
-         <label for="">Selecione o tipo</label>
-        <select name="tipo" id="tipo-campo">
-            <option value="">Selecione</option>
-            <option value="um">Um</option>
-            <option value="dois">Dois</option>
-            <option value="tres">Três</option>
-        </select>
-    </div>
-   
-
-
-
-     <div class="option-container">
-        <div class="input-criar-option">
-            <div class="input-add-option">
-                <label for="">Cria opção</label>
-                <input type="text" name="novo-option" id="input-option">
-            </div>
-
-            <button type="button" class="add-option">Adicionar</button>
-            
-        </div>
-         
-
-
-
-        <div class="option-lista">
-           <h4>Lista</h4>
-           
-           <div class="msg-option">
-               <p>Adicione opções</p>
-           </div>
-
-           <div class="option-item">
-              <input  type='text'  name='item3' value="item1">
-
-              <div class="btns-option">
-                
-                <button type="button" class="remove-option">Remover</button>
-              </div>
-           </div>
+        <form action="" class="form-cria-campo">
 
         
-
-
-           <div class="option-item">
-              <input  type='text'  name='valor' value="item3">
-
-              <div class="btns-option">
-                <!-- <button class="editar-option">Editar</button> -->
-                <button type="button" class="remove-option">Remover</button>
-              </div>
-
-
-           </div>
-
-        </div>
-
-
-     </div>
-
-
-       <button type="button" class="salvar-campo">Salvar</button>
-  </form>
+            <div class="campo-input">
+                <label for="">Nome do campo</label>
+                <input type="text" name="nome-campo" id="nome-campo" required>
+            </div>
+            
+            <div class="campo-input">
+                <label for="">Selecione o tipo</label>
+                <select name="tipo" id="tipo-campo">
+                    <option value="">Selecione</option>
+                    <option value="um">Um</option>
+                    <option value="dois">Dois</option>
+                    <option value="tres">Três</option>
+                </select>
+            </div>
+        
+            <div class="option-container">
+                <div class="input-criar-option">
+                    <div class="input-add-option">
+                        <label for="">Cria opção</label>
+                        <input type="text" name="novo-option" id="input-option">
+                    </div>
+        
+                    <button type="button" class="add-option">Adicionar</button>
+                    
+                </div>
+                
+        
+        
+        
+                <div class="option-lista">
+                <h4>Lista</h4>
+                
+                <div class="msg-option">
+                    <p>Adicione opções</p>
+                </div>
+        
+                <!-- <div class="option-item">
+                    <input  type='text'  name='item3' value="item1">
+        
+                    <div class="btns-option">
+                        
+                        <button type="button" class="remove-option">Remover</button>
+                    </div>
+                </div> -->
+        
+                
+        
+        
+                
+        
+                </div>
+        
+        
+            </div>
+        
+        
+            <button type="button" class="salvar-campo">Salvar</button>
+        </form>
+    </div>
+ </div>
+  
 
 
 
   <form action="" id="novo-form">
+     
+     <div>
+        <label for="">Nome Form</label>
+        <input type="text">
+             
+     </div>
+
+     <div class="criar-campo-title">
+        <h4>Campo</h4>
+        <button type="button" class="open-modal-add">+ Novo Campo</button>
+     </div>
+     
     <div class="novoCampo" id="campo_0">
         <div>
             <label>listas</label>
@@ -160,7 +168,9 @@
 
        <button type="button" class="salvar-campo-edit">Salvar</button>
   </form>
+ 
 
+  
 
 
 
@@ -185,8 +195,31 @@
         });
        
 
+        //fecha modal de add campo
+        $('.close-modal-add').on("click", function(){
+            
+                $('#nome-campo').val('');
+                
+                $('#tipo-campo').val('');
+                $('.option-lista .option-item').remove();
 
-       
+                $('.modal-criar-campo').css('display','none')
+                $('#input-option').val('');
+                
+
+            
+        })
+
+        //abre modal de add campo
+        $('.open-modal-add').on("click", function(){
+            
+                
+
+                $('.modal-criar-campo').css('display','flex')
+                
+
+            
+        })
 
       
 
@@ -208,7 +241,7 @@
                         <input  type='text'  name='${option}' value="${option}">
 
                         <div class="btns-option">
-                            <button type='button'  class="remove-option">Remover</button>
+                            <button type='button'  class="remove-option">X</button>
                         </div>
                 `;
 
@@ -251,83 +284,133 @@
             var tipo_campo = document.getElementById('tipo-campo').value;
             var nome_campo = document.getElementById('nome-campo').value;
             
+            if(nome_campo !== ''){
 
-            if(tipo_campo == "tres"){
+                if(tipo_campo == "tres"){
+
+                    
+                    var inputs = document.querySelectorAll(".option-item input");
+                    var lista_opcoes = [];
 
                 
-                var inputs = document.querySelectorAll(".option-item input");
-                var lista_opcoes = [];
 
-               
+                    for (var i = 0; i < inputs.length; i++) {
+                        lista_opcoes.push(inputs[i].value);
+                    }
 
-                for (var i = 0; i < inputs.length; i++) {
-                    lista_opcoes.push(inputs[i].value);
-                }
+                    if(lista_opcoes != 0){
+                        var novoSelect = document.createElement('div');
+                        novoSelect.classList.add('novoCampo')
 
-                if(lista_opcoes != 0){
-                    var novoSelect = document.createElement('div');
-                    novoSelect.classList.add('novoCampo')
+                        var novoCampoId = 'campo_' + Date.now();
+                        novoSelect.id=novoCampoId;
+                    
+                        // Conteúdo HTML do novo item
+    
+                        var opcoesHTML = lista_opcoes.map(item => `<option value="${item}">${item}</option>`).join('');
+                        
+                        novoSelect.innerHTML = `
+                            <div>
+                                <label >${nome_campo}</label>
+                                <div>
+                                    <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
+                                        </svg>
+                                            
+                                    </button>
+                                    <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                </div>
+                            </div>
+                            <select name='${nome_campo}'>
+                                ${opcoesHTML}
+                            </select>
 
+                                
+                        `;
+                        
+                    
+
+                        $('#novo-form').append(novoSelect);
+                        
+
+                    }
+
+                
+
+
+
+                }else if(tipo_campo == "um"){
+
+                    var novoInput = document.createElement('div');
+                        novoInput.classList.add('novoCampo');
+
+                        var novoCampoId = 'campo_' + Date.now();
+                        novoInput.id=novoCampoId;
+                    
+                    
+                        // Conteúdo HTML do novo item
+    
+                        
+                        novoInput.innerHTML = `
+                            <div>
+                                <label >${nome_campo}</label>
+                                <div>
+                                    <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
+                                        </svg>
+                                    </button>
+                                    <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                </div>
+                            </div>
+                            <input name='${nome_campo}'>
+
+                                
+                        `;
+                        
+                    
+                        $('.option-item').remove()
+                        $('#novo-form').append(novoInput);
+
+                }else if(tipo_campo == "dois"){
+
+                    var novoTextarea = document.createElement('div');
+                    novoTextarea.classList.add('novoCampo');
                     var novoCampoId = 'campo_' + Date.now();
-                    novoSelect.id=novoCampoId;
-                
+                        novoTextarea.id=novoCampoId;
+
                     // Conteúdo HTML do novo item
- 
-                    var opcoesHTML = lista_opcoes.map(item => `<option value="${item}">${item}</option>`).join('');
+
                     
-                    novoSelect.innerHTML = `
+                    novoTextarea.innerHTML = `
                         <div>
                             <label >${nome_campo}</label>
+                            
                             <div>
                                 <button type='button' class='editar-campo' onclick='editarCampo(this)'>Editar</button>
                                 <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
                             </div>
                         </div>
-                         <select name='${nome_campo}'>
-                            ${opcoesHTML}
-                          </select>
+                        
+                        <textarea name='${nome_campo}'></textarea>
 
                             
                     `;
-                     
-                
-
-                    $('#novo-form').append(novoSelect);
                     
 
+                        $('.option-lista .option-item').remove()
+                        $('#novo-form').append(novoTextarea);
                 }
 
-               
-
-
-
-            }else if(tipo_campo == "um"){
-
-                   var novoInput = document.createElement('div');
-                    novoInput.classList.add('novoCampo')
-                
-                    // Conteúdo HTML do novo item
- 
+                 // Limpe os campos após a edição e o salvamento
+                    $('#nome-campo').val('');
                     
-                    novoInput.innerHTML = `
-                        <div>
-                            <label >${nome_campo}</label>
-                            <div>
-                                <button type='button' class='editar-campo' onclick='editarCampo(this)'>Editar</button>
-                                <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
-                            </div>
-                        </div>
-                         <input name='${nome_campo}'>
+                    $('#tipo-campo').val('');
+                    $('.option-lista .option-item').remove();
+                    $('.modal-criar-campo').css('display','none')
 
-                            
-                    `;
-                     
-                
-
-                    $('#novo-form').append(novoInput);
             }
-
-            
             
             
         });
