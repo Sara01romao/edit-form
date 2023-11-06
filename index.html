@@ -21,6 +21,7 @@
             <div class="campo-input">
                 <label for="">Nome do campo</label>
                 <input type="text" name="nome-campo" id="nome-campo" required>
+                <small class="erro-campo">Preencha o campo</small>
             </div>
             
             <div class="campo-input">
@@ -31,6 +32,7 @@
                     <option value="dois">Dois</option>
                     <option value="tres">Três</option>
                 </select>
+                <small class="erro-campo">Selecione o tipo</small>
             </div>
         
             <div class="option-container">
@@ -322,7 +324,7 @@
             var tipo_campo = document.getElementById('tipo-campo').value;
             var nome_campo = document.getElementById('nome-campo').value;
             
-            if(nome_campo !== ''){
+            if(nome_campo !== '' && tipo_campo !== ''){
 
                 if(tipo_campo == "tres"){
 
@@ -451,7 +453,22 @@
                     $('#tipo-campo').val('');
                     $('.option-lista .option-item').remove();
                     $('.modal-criar-campo').css('display','none')
+                    $('#nome-campo').next('small').css('display', 'none');
+                    $('#tipo-campo').next('small').css('display', 'none');
 
+            }else if( tipo_campo == '' && nome_campo == ''){
+                    $('#tipo-campo').next('small').css('display', 'block');
+                    $('#nome-campo').next('small').css('display', 'block');
+
+            }else if( tipo_campo == ''){
+                $('#tipo-campo').next('small').css('display', 'block');
+               
+
+            }else{
+                
+                $('#nome-campo').next('small').css('display', 'block');
+
+                
             }
             
             
