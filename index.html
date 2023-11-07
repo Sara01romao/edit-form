@@ -158,60 +158,74 @@
 
 
 
-  <form action="" class="form-edit-campo">
-
   
-    <div class="campo-input">
-        <label for="">Nome do campo</label>
-        <input type="text" name="nome-campo" id="nome-campo-edit" required>
-        <small class="erro-campo">Preencha o campo</small>
-        <input type="text" name="id-campo" id="id-campo" disabled="disabled">
+<div class="modal-edit-campo">
+    <div class="modal-edit-campo-container">
+
+        <button class="close-modal-edit">x</button>
+            
+        <h2>title</h2>
+        <form action="" class="form-edit-campo">
+
+
+            <div class="campo-input">
+                <label for="">Nome do campo</label>
+                <input type="text" name="nome-campo" id="nome-campo-edit" required>
+                <small class="erro-campo">Preencha o campo</small>
+                <input type="text" name="id-campo" id="id-campo" disabled="disabled">
+                <small class="erro-campo">Preencha o campo</small>
+            </div>
+            
+            <div class="campo-input">
+                <label for="">Selecione o tipo</label>
+                <select name="tipo" id="tipo-campo-edit">
+                    <option value="">Selecione</option>
+                    <option value="um">Um</option>
+                    <option value="dois">Dois</option>
+                    <option value="tres">Três</option>
+                </select>
+                <small class="erro-campo">Preencha o campo</small>
+            </div>
+        
+        
+        
+        
+            <div class="option-container">
+                <div class="input-criar-option">
+                    <div class="input-add-option">
+                        <label for="">Cria opção</label>
+                        <input type="text" name="novo-option" id="input-option-edit">
+                    </div>
+        
+                    <button type="button" class="add-option-edit">Adicionar</button>
+                    
+                </div>
+                <small class="erro-campo">Adicione opções</small>
+                
+        
+        
+        
+                <div class="option-lista-edit editar-campo">
+                <h4>Lista</h4>
+                
+                <div class="msg-option">
+                    <p>Adicione opções</p>
+                </div>
+        
+                
+        
+                </div>
+        
+        
+            </div>
+        
+        
+            <button type="button" class="salvar-campo-edit">Salvar</button>
+        </form>
     </div>
     
-    <div class="campo-input">
-         <label for="">Selecione o tipo</label>
-        <select name="tipo" id="tipo-campo-edit">
-            <option value="">Selecione</option>
-            <option value="um">Um</option>
-            <option value="dois">Dois</option>
-            <option value="tres">Três</option>
-        </select>
-    </div>
-   
-
-
-
-     <div class="option-container">
-        <div class="input-criar-option">
-            <div class="input-add-option">
-                <label for="">Cria opção</label>
-                <input type="text" name="novo-option" id="input-option-edit">
-            </div>
-
-            <button type="button" class="add-option-edit">Adicionar</button>
-            
-        </div>
-         
-
-
-
-        <div class="option-lista-edit editar-campo">
-           <h4>Lista</h4>
-           
-           <div class="msg-option">
-               <p>Adicione opções</p>
-           </div>
-
-           
-
-        </div>
-
-
-     </div>
-
-
-       <button type="button" class="salvar-campo-edit">Salvar</button>
-  </form>
+</div>
+  
  
 
   
@@ -570,7 +584,7 @@
 
                                 <div class="btns-option">
                                     
-                                    <button type="button" class="remove-option">x</button>
+                                    <button type="button" class="remove-option">X</button>
                                 </div>
                                 
                         `;
@@ -635,7 +649,7 @@
                         <input  type='text'  name='${option}' value="${option}">
 
                         <div class="btns-option">
-                            <button type='button'  class="remove-option">Remover</button>
+                            <button type='button'  class="remove-option">X</button>
                         </div>
                 `;
 
@@ -693,7 +707,7 @@
 
             console.log(tipo_campo, id_campo, nome_campo)
            
-            if(nome_campo !== ''){
+            if(nome_campo !== ''&& tipo_campo !== ''){
 
                     if(tipo_campo == "tres"){
 
@@ -707,15 +721,18 @@
                             lista_opcoes.push(inputs[i].value);
                         }
 
-                        if(lista_opcoes != 0){
+                        if(lista_opcoes.length !== 0){
                             var novoSelect = document.createElement('div');
                             novoSelect.classList.add('novoCampo');
                             novoSelect.id=id_campo;
                         
                             // Conteúdo HTML do novo item
         
-                            var opcoesHTML = lista_opcoes.map(item => `<option value="${item}">${item}</option>`).join('');
-                            
+                            var opcoesHTML = lista_opcoes
+                            .filter(item => item !== '') // Filtra os itens que não são vazios
+                            .map(item => `<option value="${item}">${item}</option>`) // Cria elementos <option> para cada item
+                            .join('');
+
                             novoSelect.innerHTML = `
                                 <div>
                                     <label >${nome_campo}</label>
@@ -725,7 +742,7 @@
                                                 <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
                                             </svg>
                                         </button>
-                                        <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                        <button type='button' class='remove-campo' onclick='removerCampo(this)'>X</button>
                                     </div>
                                 </div>
                                 <select name='${nome_campo}'>
@@ -739,10 +756,20 @@
 
                             $('#novo-form').find('#'+id_campo).replaceWith(novoSelect);
                             //$('#novo-form').append(novoSelect);
+
+                            $('#nome-campo-edit').val('');
+                            $('#id-campo').val('');
+                            $('#tipo-campo-edit').val('');
+                            $('#nome-campo-edit').next("small").css('display', 'none')
+                            $('.option-lista-edit .option-item').remove();
                             
                             
                             
 
+                        }else{
+                        
+                            
+                            $('.input-criar-option').next('small').css('display', 'block');
                         }
 
                     
@@ -781,6 +808,12 @@
 
                             $('#novo-form').find('#'+id_campo).replaceWith(novoInput);
 
+                            $('#nome-campo-edit').val('');
+                            $('#id-campo').val('');
+                            $('#tipo-campo-edit').val('');
+                            $('#nome-campo-edit').next("small").css('display', 'none')
+                            $('.option-lista-edit .option-item').remove();
+
                     }else if(tipo_campo == "dois"){
 
                         var novoTextarea = document.createElement('div');
@@ -812,18 +845,28 @@
 
 
                         $('#novo-form').find('#'+id_campo).replaceWith(novoTextarea);
+
+                        $('#nome-campo-edit').val('');
+                        $('#id-campo').val('');
+                        $('#tipo-campo-edit').val('');
+                        $('#nome-campo-edit').next("small").css('display', 'none')
+                        $('.option-lista-edit .option-item').remove();
                     }
 
-                    
-                    // Limpe os campos após a edição e o salvamento
-                    $('#nome-campo-edit').val('');
-                    $('#id-campo').val('');
-                    $('#tipo-campo-edit').val('');
-                    $('#nome-campo-edit').next("small").css('display', 'none')
-                    $('.option-lista-edit .option-item').remove();
-            }else{
-                $('#nome-campo-edit').next("small").css('display', 'block')
+
+            }else if( tipo_campo == '' && nome_campo == ''){
+                    $('#tipo-campo-edit').next('small').css('display', 'block');
+                    $('#nome-campo-edit').next('small').css('display', 'block');
+
+            }else if( tipo_campo == ''){
+                $('#tipo-campo-edit').next('small').css('display', 'block');
                
+
+            }else{
+                
+                $('#nome-campo-edit').next('small').css('display', 'block');
+
+                
             }
             
         });
