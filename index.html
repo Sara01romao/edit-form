@@ -13,7 +13,7 @@
     <div class="modal-campo-container">
         <button class="close-modal-add">x</button>
         
-        <h2>title</h2>
+        <h2>+ Criar Campo</h2>
 
         <form action="" class="form-cria-campo">
 
@@ -164,7 +164,14 @@
 
         <button class="close-modal-edit">x</button>
             
-        <h2>title</h2>
+        <h2>
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.65358 3.09566L13.9041 7.3464L4.67424 16.5767L0.884537 16.9951C0.377206 17.0512 -0.0514349 16.6222 0.0050089 16.1148L0.426678 12.3223L9.65358 3.09566ZM16.5331 2.4628L14.5373 0.466927C13.9148 -0.155642 12.9051 -0.155642 12.2825 0.466927L10.405 2.34459L14.6555 6.59533L16.5331 4.71766C17.1556 4.09476 17.1556 3.08537 16.5331 2.4628Z" fill="#4F4F4F"/>
+            </svg>
+                
+                    
+            Editar Campo
+        </h2>
         <form action="" class="form-edit-campo">
 
 
@@ -266,6 +273,9 @@
                 $('.modal-criar-campo').css('display','none')
                 $('#input-option').val('');
                 $('.option-container').css('display', 'none');
+
+                $('#tipo-campo').next('small').css('display', 'none');
+                $('#nome-campo').next('small').css('display', 'none');
 
                 
 
@@ -534,7 +544,32 @@
 
 //-----------------EDITAR-----------------------------------------------------------
 
+        //fecha modal de edit campo
+        $('.close-modal-edit').on("click", function(){
+            
+            $('#nome-campo-edit').val('');
+            
+            $('#tipo-campo-edit').val('');
+            $('.option-lista-edit .option-item').remove();
+
+            $('.modal-edit-campo').css('display','none')
+            $('#input-option').val('');
+            $('.option-container').css('display', 'none');
+
+            $('#tipo-campo-edit').next('small').css('display', 'none');
+            $('#nome-campo-edit').next('small').css('display', 'none');
+ 
+        })
+
+       
+    
+
+
         function editarCampo(button) {
+            
+
+            $('.modal-edit-campo').css('display','flex')
+
             const campoContainer = $(button).closest(".novoCampo");
             var idCampo = campoContainer.attr('id');
             const selectElement = campoContainer.find("select");
@@ -761,6 +796,7 @@
                             $('#tipo-campo-edit').val('');
                             $('#nome-campo-edit').next("small").css('display', 'none')
                             $('.option-lista-edit .option-item').remove();
+                            $('.modal-edit-campo').css('display','none')
                             
                             
                             
@@ -812,6 +848,7 @@
                             $('#tipo-campo-edit').val('');
                             $('#nome-campo-edit').next("small").css('display', 'none')
                             $('.option-lista-edit .option-item').remove();
+                            $('.modal-edit-campo').css('display','none')
 
                     }else if(tipo_campo == "dois"){
 
@@ -850,6 +887,7 @@
                         $('#tipo-campo-edit').val('');
                         $('#nome-campo-edit').next("small").css('display', 'none')
                         $('.option-lista-edit .option-item').remove();
+                        $('.modal-edit-campo').css('display','none')
                     }
 
 
@@ -869,6 +907,9 @@
             }
             
         });
+
+
+
     </script>
 
 
