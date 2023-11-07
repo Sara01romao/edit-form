@@ -38,14 +38,18 @@
             <div class="option-container">
                 <div class="input-criar-option">
                     <div class="input-add-option">
-                        <label for="">Cria opção</label>
-                        <input type="text" name="novo-option" id="input-option">
+                       
+                            <label for="">Cria opção</label>
+                            <input type="text" name="novo-option" id="input-option">
+                        
+                        
+                        
                     </div>
         
                     <button type="button" class="add-option">Adicionar</button>
                     
                 </div>
-                
+                <small class="erro-campo">Adicione opções</small>
         
         
         
@@ -219,6 +223,8 @@
 
 
     <script>
+
+        //verifica mudança do select tipo de campo
         $('#tipo-campo').on('change', function() {
             console.log( this.value );
 
@@ -245,6 +251,8 @@
 
                 $('.modal-criar-campo').css('display','none')
                 $('#input-option').val('');
+                $('.option-container').css('display', 'none');
+
                 
 
             
@@ -262,7 +270,7 @@
         })
 
       
-
+        //adiciona options no modal criar campo  
         $('.add-option').on("click", function(){
             
             var option= $('#input-option').val();
@@ -288,6 +296,7 @@
 
                 $('.option-lista').append(novoItem);
                 $('#input-option').val('');
+                $('.input-criar-option').next('small').css('display', 'none');
 
 
                 
@@ -297,13 +306,14 @@
             if($('.option-lista').find('.option-item').length !== 0){
               
                $('.msg-option').css('display','none')
+               
             }
             
         })
         
 
        
-        //remover option
+        //remover option no modal criar campo 
         $('.option-lista').on("click", ".remove-option", function(){
             $(this).closest('.option-item').remove()
             console.log('removeu')
@@ -338,7 +348,7 @@
                         lista_opcoes.push(inputs[i].value);
                     }
 
-                    if(lista_opcoes != 0){
+                    if(lista_opcoes.length != 0){
                         var novoSelect = document.createElement('div');
                         novoSelect.classList.add('novoCampo')
 
@@ -372,8 +382,19 @@
                     
 
                         $('#novo-form').append(novoSelect);
-                        
 
+                        $('#nome-campo').val('');
+                        $('#tipo-campo').val('');
+                        $('.option-lista .option-item').remove();
+                        $('.modal-criar-campo').css('display','none')
+                        $('#nome-campo').next('small').css('display', 'none');
+                        $('#tipo-campo').next('small').css('display', 'none');
+                        $('.option-container').css('display', 'none');
+
+                    }else{
+                        
+                        
+                        $('.input-criar-option').next('small').css('display', 'block');
                     }
 
                 
@@ -413,6 +434,13 @@
                         $('.option-item').remove()
                         $('#novo-form').append(novoInput);
 
+                        $('#nome-campo').val('');
+                        $('#tipo-campo').val('');
+                        $('.option-lista .option-item').remove();
+                        $('.modal-criar-campo').css('display','none')
+                        $('#nome-campo').next('small').css('display', 'none');
+                        $('#tipo-campo').next('small').css('display', 'none');
+
                 }else if(tipo_campo == "dois"){
 
                     var novoTextarea = document.createElement('div');
@@ -445,17 +473,16 @@
 
                         $('.option-lista .option-item').remove()
                         $('#novo-form').append(novoTextarea);
+
+                        $('#nome-campo').val('');
+                        $('#tipo-campo').val('');
+                        $('.option-lista .option-item').remove();
+                        $('.modal-criar-campo').css('display','none')
+                        $('#nome-campo').next('small').css('display', 'none');
+                        $('#tipo-campo').next('small').css('display', 'none');
                 }
 
-                 // Limpe os campos após a edição e o salvamento
-                    $('#nome-campo').val('');
-                    
-                    $('#tipo-campo').val('');
-                    $('.option-lista .option-item').remove();
-                    $('.modal-criar-campo').css('display','none')
-                    $('#nome-campo').next('small').css('display', 'none');
-                    $('#tipo-campo').next('small').css('display', 'none');
-
+                 
             }else if( tipo_campo == '' && nome_campo == ''){
                     $('#tipo-campo').next('small').css('display', 'block');
                     $('#nome-campo').next('small').css('display', 'block');
