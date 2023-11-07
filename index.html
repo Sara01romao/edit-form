@@ -46,7 +46,7 @@
                         
                     </div>
         
-                    <button type="button" class="add-option">Adicionar</button>
+                    <button type="button" class="add-option">+ Adicionar</button>
                     
                 </div>
                 <small class="erro-campo">Adicione opções</small>
@@ -361,7 +361,10 @@
                     
                         // Conteúdo HTML do novo item
     
-                        var opcoesHTML = lista_opcoes.map(item => `<option value="${item}">${item}</option>`).join('');
+                        var opcoesHTML = lista_opcoes
+                        .filter(item => item !== '') // Filtra os itens que não são vazios
+                        .map(item => `<option value="${item}">${item}</option>`) // Cria elementos <option> para cada item
+                        .join('');
                         
                         novoSelect.innerHTML = `
                             <div>
