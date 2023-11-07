@@ -637,7 +637,7 @@
 
             if(!option){
                 console.log('vazio');
-
+                $('.option-lista-edit .msg-option').css('display','flex')
             }else{
                 console.log(option)
 
@@ -656,9 +656,9 @@
 
                 $('.option-lista-edit').append(novoItem);
                 $('#input-option-edit').val('');
+                $('.form-edit-campo .input-criar-option').next('small').css('display', 'none');
 
-
-                
+                $('.option-lista-edit .msg-option').css('display','none')
             }
              
            
@@ -673,9 +673,8 @@
             
             //verifica qtd de option
             if($('.option-lista-edit').find('.option-item').length == 0){
-                console.log($('.option-lista').find('.option-item').length, "qtd")
 
-               $('.msg-option').css('display','flex')
+               $('.option-lista-edit .msg-option').css('display','flex')
             }
         });
         
