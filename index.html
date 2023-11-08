@@ -28,9 +28,9 @@
                 <label for="">Selecione o tipo</label>
                 <select name="tipo" id="tipo-campo">
                     <option value="">Selecione</option>
-                    <option value="um">Um</option>
-                    <option value="dois">Dois</option>
-                    <option value="tres">Três</option>
+                    <option value="um">Texto Simples</option>
+                    <option value="dois">Texto Logo</option>
+                    <option value="tres">Lista de Opções</option>
                 </select>
                 <small class="erro-campo">Selecione o tipo</small>
             </div>
@@ -87,73 +87,34 @@
   
 
 
-
-  <form action="" id="novo-form">
+  <section class="novo-formulario-container">
+    <h1>Title</h1>
+    <form action="" id="novo-form">
      
-     <div>
-        <label for="">Nome Form</label>
-        <input type="text">
-             
-     </div>
-
-     <div class="criar-campo-title">
-        <h4>Campo</h4>
-        <button type="button" class="open-modal-add">+ Novo Campo</button>
-     </div>
-     
-    <div class="novoCampo" id="campo_0">
-        <div>
-            <label>listas</label>
-            <div>
-                <button type="button" class="editar-campo" onclick='editarCampo(this)'>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"></path>
-                    </svg>
-                </button>
-                <button type="button" class="remove-campo" onclick="removerCampo(this)"> X</button>
-            </div>
+        <div class="form-campo-container">
+           <label for="">Nome Formulário</label>
+           <input type="text">
+                
         </div>
-         <select name="listas">
-            <option value="item1">item1</option><option value="item3">item3</option>
-          </select>
-
-            
-    </div>
-
-    <div class="novoCampo" id="campo_1699287220905">
-        <div>
-            <label>Nome</label>
-            <div>
-                <button type="button" class="editar-campo" onclick="editarCampo(this)">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"></path>
-                    </svg>
-                </button>
-                <button type="button" class="remove-campo" onclick="removerCampo(this)"> X</button>
-            </div>
+   
+        <div class="form-campo-container">
+           <label for="">Texto de instruções <small>(texto explicativo sobre o formulário, orientações de preenchimento, etc)</small></label>
+           <input type="text">
+                
         </div>
-        <input name="Nome">
-
-            
-    </div>
-
-
-    <div class="novoCampo" id="campo_1699288771532">
-        <div>
-            <label>msg</label>
-            
-            <div>
-                <button type="button" class="editar-campo" onclick="editarCampo(this)">Editar</button>
-                <button type="button" class="remove-campo" onclick="removerCampo(this)"> X</button>
-            </div>
+   
+        <div class="criar-campo-title">
+           <h4>Campo</h4>
+           <button type="button" class="open-modal-add">+ Novo Campo</button>
         </div>
+
+
         
-        <textarea name="msg" style=""></textarea>
-
-            
-    </div>
-
-  </form>
+       
+   
+     </form>
+  </section>
+  
     
 
 
@@ -187,9 +148,9 @@
                 <label for="">Selecione o tipo</label>
                 <select name="tipo" id="tipo-campo-edit">
                     <option value="">Selecione</option>
-                    <option value="um">Um</option>
-                    <option value="dois">Dois</option>
-                    <option value="tres">Três</option>
+                    <option value="um">Texto Simples</option>
+                    <option value="dois">Texto Longo</option>
+                    <option value="tres">Lista de Opções</option>
                 </select>
                 <small class="erro-campo">Preencha o campo</small>
             </div>
@@ -213,7 +174,7 @@
         
         
                 <div class="option-lista-edit editar-campo">
-                <h4>Lista</h4>
+                <h4>Opções</h4>
                 
                 <div class="msg-option">
                     <p>Adicione opções</p>
@@ -396,7 +357,7 @@
                                 <div>
                                     <button type='button' class='editar-campo' onclick='editarCampo(this)'>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
+                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
                                         </svg>
                                             
                                     </button>
@@ -450,7 +411,7 @@
                                 <div>
                                     <button type='button' class='editar-campo' onclick='editarCampo(this)'>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
+                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
                                         </svg>
                                     </button>
                                     <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
@@ -489,7 +450,7 @@
                             <div>
                                 <button type='button' class='editar-campo' onclick='editarCampo(this)'>
                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#262626"/>
+                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
                                     </svg>    
                                 </button>
                                 <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>

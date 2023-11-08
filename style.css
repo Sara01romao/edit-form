@@ -18,13 +18,19 @@ body{
 
 /*form*/
 
-#novo-form{
-    max-width:600px;
-    width: 100%;
-    margin: 50px auto;
-
+.novo-formulario-container{
     border: 1px solid  blue;
+}
 
+.novo-formulario-container h1{
+    text-align: center;
+
+}
+
+
+#novo-form{
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
 
 }
@@ -33,10 +39,34 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: aliceblue;
-    padding: 10px;
+    background: #F7F7F7;
     margin-bottom: 35px;
     
+}
+
+.criar-campo-title h4{
+    color: #595555;
+    font-size: 1.2rem;
+    padding: 0px 10px;
+
+}
+
+
+.form-campo-container{
+    
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.form-campo-container input{
+    
+    height: 30px;
+    font-size: 16px;
+    padding: 0px 5px;
+    border: 1px solid #CCCCCC;
+    margin-top: 6px;
+    border-radius: 4px;
 }
 
 .open-modal-add{
@@ -51,7 +81,7 @@ body{
 .novoCampo{
     width: 100%;
     border: 1px solid  rgb(0, 217, 255);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -67,21 +97,46 @@ body{
 }
 
 .novoCampo div button{
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
+    background: #F0F0F0;
+    border: none;
+    cursor: pointer;
+    transition: 0.8s;
+}
+
+.novoCampo div button:hover{
+    background: #d2d2d2;
+    transition: 0.5s;
+}
+
+
+.remove-campo{
+    color: red;
+    font-weight: bold;
 }
 
 .novoCampo input, .novoCampo select{
-    width: 100%;
+    
     height: 30px;
     font-size: 18px;
     padding: 0px 5px;
+    border: 1px solid #CCCCCC;
+    margin-top: 6px;
+    border-radius: 4px;
 }
 
 .novoCampo textarea{
     height: 100px;
+    border: 1px solid #CCCCCC;
+    margin-top: 6px;
+    border-radius: 4px;
 }
 
+
+#novo-form:has(novoCampo){
+    border: 1px solid red;
+}
 
 /*modal adiciona*/
 
@@ -123,6 +178,7 @@ body{
 
 .modal-campo-container h2{
     text-align: center;
+    color: #595959;
 
 }
 
@@ -190,6 +246,10 @@ body{
     height: 30px;
     padding: 0px 14px;
     font-size: 16px;
+    border: 1px solid #CCCCCC;
+    margin-top: 6px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
 
 
@@ -210,7 +270,6 @@ body{
 .option-item{
     display: flex;
     align-items: center;
-    gap: 5px;
     margin: 10px 0px;
     justify-content: space-between;
     position: relative;
@@ -220,7 +279,10 @@ body{
     width: 100%;
     height: 30px;
     padding: 0px 14px;
-    font-size: 18px;
+    font-size: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border: 1px solid #CCCCCC;
 }
 
 .option-item svg{
@@ -230,7 +292,7 @@ body{
 
 .option-item button{
     width: 40px;
-    height: 35px;
+    height: 32px;
     font-weight: bold;
     color: red;
     background: #F0F0F0;
@@ -254,6 +316,9 @@ body{
     height: 30px;
     padding: 0px 14px;
     font-size: 16px;
+    border: 1px solid #CCCCCC;
+    margin-top: 6px;
+    border-radius: 4px;
 }
 
 .salvar-campo{
@@ -283,7 +348,7 @@ body{
     background-color: rgba(0, 0, 0, 0.212);
     position: absolute;
     top: 0px;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
@@ -296,6 +361,7 @@ body{
     padding: 20px;
     background-color: #fff;
     padding: 20px 20px 30px;
+    border-radius: 4px;
 
 }
 
@@ -322,6 +388,7 @@ body{
     padding: 0px 10px 10px 10px;
     color: #595959;
     cursor: pointer;
+    border-top-right-radius: 4px;
 }
 
 
