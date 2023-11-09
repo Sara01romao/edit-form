@@ -195,22 +195,25 @@ body{
     width: 100%;
     margin: 0 auto;
     position: relative;
-    padding: 20px;
     background-color: #fff;
     padding: 20px 20px 30px;
+    border-radius: 4px;
 }
 
 .close-modal-add{
     width: 30px;
     height: 30px;
     background-color: #fff;
-    font-size: 18px;
+    font-size: 26px;
     font-weight: bold;
     border: none;
     position: absolute;
     right: 0px;
     top: 0px;
     padding: 0px 10px 10px 10px;
+    color: #595959;
+    cursor: pointer;
+    border-top-right-radius: 4px;
 }
 
 .modal-campo-container h2{
@@ -368,15 +371,30 @@ body{
 }
 
 .info-tipo{
-    background: aliceblue;
+    background:#f9f9f9;
     padding: 15px;
     width: 150px;
     border-radius: 4px;
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 8px;
     position: absolute;
-    left: 126px;
+    left: 120px;
+    top: 32px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: 0.8s ease;
+
+}
+
+.info-tipo::before{
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid #d7d7d7;
+    background: rgb(255, 255, 255);
 }
 
 .info-tipo p{
@@ -384,6 +402,24 @@ body{
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.active-intro{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50px;
+    margin-left: 5px;
+    background: #6e7270;
+    color: #fff;
+}
+
+.active-intro:hover ~ .info-tipo{
+    display: flex;
+    transition: 0.8s ease;
 }
 
 
