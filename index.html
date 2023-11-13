@@ -143,8 +143,12 @@
             <p>Clique no botão <strong>"+ Novo Campo"</strong> para começar a criar seu formulário.</p>
         </div>
         
+        <div class="form-container-campo">
+
+        </div>
+
         
-        <button class="salvar-form">Salvar</button>
+        <button type="button" class="salvar-form" onclick="coletarCampos()">Salvar</button>
    
      </form>
   </section>
@@ -405,7 +409,7 @@
                         
                     
 
-                        $('#novo-form').append(novoSelect);
+                        $('#novo-form .form-container-campo').append(novoSelect);
 
                         $('#nome-campo').val('');
                         $('#tipo-campo').val('');
@@ -456,7 +460,7 @@
                         
                     
                         $('.option-item').remove()
-                        $('#novo-form').append(novoInput);
+                        $('#novo-form .form-container-campo').append(novoInput);
 
                         $('#nome-campo').val('');
                         $('#tipo-campo').val('');
@@ -496,7 +500,7 @@
                     
 
                         $('.option-lista .option-item').remove()
-                        $('#novo-form').append(novoTextarea);
+                        $('#novo-form .form-container-campo').append(novoTextarea);
 
                         $('#nome-campo').val('');
                         $('#tipo-campo').val('');
@@ -724,7 +728,7 @@
         });
 
 
-
+        //salvar edição   
         $('.salvar-campo-edit').on('click', function() {
             
 
@@ -903,6 +907,9 @@
 
 
 
+
+
+  
     </script>
 
 
