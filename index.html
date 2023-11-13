@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -453,7 +455,7 @@
                                     <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
                                 </div>
                             </div>
-                            <input name='${nome_campo}'>
+                            <input type="text" name='${nome_campo}'>
 
                                 
                         `;
@@ -832,7 +834,7 @@
                                         <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
                                     </div>
                                 </div>
-                                <input name='${nome_campo}'>
+                                <input type="text" name='${nome_campo}'>
 
                                     
                             `;
@@ -893,12 +895,12 @@
                     $('#nome-campo-edit').next('small').css('display', 'block');
 
             }else if( tipo_campo == ''){
-                $('#tipo-campo-edit').next('small').css('display', 'block');
+                    $('#tipo-campo-edit').next('small').css('display', 'block');
                
 
             }else{
                 
-                $('#nome-campo-edit').next('small').css('display', 'block');
+                    $('#nome-campo-edit').next('small').css('display', 'block');
 
                 
             }
