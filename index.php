@@ -1,3 +1,8 @@
+<?php
+
+echo "Teste";
+
+?>
 
 
 <!DOCTYPE html>
@@ -120,120 +125,120 @@
   
 
 
-  <section class="novo-formulario-container">
-    <h1>Title</h1>
-    <form action="" id="novo-form">
-     
-        <div class="form-campo-container">
-           <label for="">Nome Formulário</label>
-           <input type="text">
-                
-        </div>
-   
-        <div class="form-campo-container">
-           <label for="">Texto de instruções <small>(texto explicativo sobre o formulário, orientações de preenchimento, etc)</small></label>
-           <input type="text">
-                
-        </div>
-   
-        <div class="criar-campo-title">
-           <h4>Campo</h4>
-           <button type="button" class="open-modal-add">+ Novo Campo</button>
-        </div>
-
-        <div class="msg-campo-vazio">
-            <p>Clique no botão <strong>"+ Novo Campo"</strong> para começar a criar seu formulário.</p>
-        </div>
-        
-        <div class="form-container-campo">
-
-        </div>
-
-        
-        <button type="button" class="salvar-form" onclick="coletarCampos()">Salvar</button>
-   
-     </form>
-  </section>
-  
+ 
     
 
 
 
   
-<div class="modal-edit-campo">
-    <div class="modal-edit-campo-container">
+    <div class="modal-edit-campo">
+        <div class="modal-edit-campo-container">
 
-        <button class="close-modal-edit">x</button>
-            
-        <h2>
-            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.65358 3.09566L13.9041 7.3464L4.67424 16.5767L0.884537 16.9951C0.377206 17.0512 -0.0514349 16.6222 0.0050089 16.1148L0.426678 12.3223L9.65358 3.09566ZM16.5331 2.4628L14.5373 0.466927C13.9148 -0.155642 12.9051 -0.155642 12.2825 0.466927L10.405 2.34459L14.6555 6.59533L16.5331 4.71766C17.1556 4.09476 17.1556 3.08537 16.5331 2.4628Z" fill="#4F4F4F"/>
-            </svg>
+            <button class="close-modal-edit">x</button>
                 
+            <h2>
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.65358 3.09566L13.9041 7.3464L4.67424 16.5767L0.884537 16.9951C0.377206 17.0512 -0.0514349 16.6222 0.0050089 16.1148L0.426678 12.3223L9.65358 3.09566ZM16.5331 2.4628L14.5373 0.466927C13.9148 -0.155642 12.9051 -0.155642 12.2825 0.466927L10.405 2.34459L14.6555 6.59533L16.5331 4.71766C17.1556 4.09476 17.1556 3.08537 16.5331 2.4628Z" fill="#4F4F4F"/>
+                </svg>
                     
-            Editar Campo
-        </h2>
+                        
+                Editar Campo
+            </h2>
 
-        <form action="" class="form-edit-campo">
+            <form action="" class="form-edit-campo">
 
-            <div class="campo-input">
-                <label for="">Nome do campo</label>
-                <input type="text" name="nome-campo" id="nome-campo-edit" required>
-                <small class="erro-campo">Preencha o campo</small>
-                <input type="text" name="id-campo" id="id-campo" disabled="disabled">
-                <small class="erro-campo">Preencha o campo</small>
-            </div>
+                <div class="campo-input">
+                    <label for="">Nome do campo</label>
+                    <input type="text" name="nome-campo" id="nome-campo-edit" required>
+                    <small class="erro-campo">Preencha o campo</small>
+                    <input type="text" name="id-campo" id="id-campo" disabled="disabled">
+                    <small class="erro-campo">Preencha o campo</small>
+                </div>
+                
+                <div class="campo-input">
+                    <label for="">Selecione o tipo</label>
+                    <select name="tipo" id="tipo-campo-edit">
+                        <option value="">Selecione</option>
+                        <option value="um">Texto Curto</option>
+                        <option value="dois">Parágrafo</option>
+                        <option value="tres">Lista de Opções</option>
+                    </select>
+                    <small class="erro-campo">Preencha o campo</small>
+                </div>
             
-            <div class="campo-input">
-                <label for="">Selecione o tipo</label>
-                <select name="tipo" id="tipo-campo-edit">
-                    <option value="">Selecione</option>
-                    <option value="um">Texto Curto</option>
-                    <option value="dois">Parágrafo</option>
-                    <option value="tres">Lista de Opções</option>
-                </select>
-                <small class="erro-campo">Preencha o campo</small>
-            </div>
-        
-        
-        
-        
-            <div class="option-container">
-                <div class="input-criar-option">
-                    <div class="input-add-option">
-                        <label for="">Cria opção</label>
-                        <input type="text" name="novo-option" id="input-option-edit">
+            
+            
+            
+                <div class="option-container">
+                    <div class="input-criar-option">
+                        <div class="input-add-option">
+                            <label for="">Cria opção</label>
+                            <input type="text" name="novo-option" id="input-option-edit">
+                        </div>
+            
+                        <button type="button" class="add-option-edit">Adicionar</button>
+                        
                     </div>
-        
-                    <button type="button" class="add-option-edit">Adicionar</button>
+                    <small class="erro-campo">Adicione opções</small>
                     
-                </div>
-                <small class="erro-campo">Adicione opções</small>
-                
 
-                <div class="option-lista-edit editar-campo">
-                    <h4>Opções</h4>
-                
-                    <div class="msg-option">
-                        <p>Adicione opções</p>
+                    <div class="option-lista-edit editar-campo">
+                        <h4>Opções</h4>
+                    
+                        <div class="msg-option">
+                            <p>Adicione opções</p>
+                        </div>
+            
+                    
+            
                     </div>
-        
-                
-        
+            
+            
                 </div>
+            
+            
+                <button type="button" class="salvar-campo-edit">Salvar</button>
+            </form>
+        </div>
         
-        
-            </div>
-        
-        
-            <button type="button" class="salvar-campo-edit">Salvar</button>
-        </form>
     </div>
-    
-</div>
   
  
 
+    <section class="novo-formulario-container">
+        <h1>Title</h1>
+        <form action="" id="novo-form">
+        
+            <div class="form-campo-container">
+            <label for="">Nome Formulário</label>
+            <input type="text" name="nome-formulario">
+                    
+            </div>
+    
+            <div class="form-campo-container">
+            <label for="">Texto de instruções <small>(texto explicativo sobre o formulário, orientações de preenchimento, etc)</small></label>
+            <input type="text" name="intro-formulario">
+                    
+            </div>
+    
+            <div class="criar-campo-title">
+            <h4>Campo</h4>
+            <button type="button" class="open-modal-add">+ Novo Campo</button>
+            </div>
+
+            <div class="msg-campo-vazio">
+                <p>Clique no botão <strong>"+ Novo Campo"</strong> para começar a criar seu formulário.</p>
+            </div>
+            
+            <div class="form-container-campo">
+
+            </div>
+
+            
+            <button type="button" class="salvar-form" onclick="coletarCampos()">Salvar</button>
+    
+        </form>
+    </section>
   
 
 
@@ -531,17 +536,17 @@
             
         });
 
-//-----------------REMOVER-----------------------------------------------------------
-       
-        //remove campo
-        function removerCampo(button) {
-            const campoContainer = button.closest(".novoCampo");
-            campoContainer.remove();
-        }
+        //-----------------REMOVER-----------------------------------------------------------
+            
+                //remove campo
+                function removerCampo(button) {
+                    const campoContainer = button.closest(".novoCampo");
+                    campoContainer.remove();
+                }
 
 
 
-//-----------------EDITAR-----------------------------------------------------------
+        //-----------------EDITAR-----------------------------------------------------------
 
         //fecha modal de edit campo
         $('.close-modal-edit').on("click", function(){
@@ -907,7 +912,81 @@
             
         });
 
+    </script>
 
+
+<script>
+/*------Coletar campo----------------------------------------------------------------------------------------------------------------*/
+       
+
+    //coleta os campos para enviar para php
+    function coletarCampos() {
+        const formulario = document.getElementById('novo-form');
+        const campos = formulario.querySelectorAll('input[type="text"], textarea');
+        const selects = formulario.querySelectorAll('.campo-container select');
+
+        console.log("Form", formulario);
+        console.log("campo", campos);
+
+        const camposData = [];
+        const selectData = [];
+
+        campos.forEach(function (campo) {
+            if (campo.name === 'nome-formulario') {
+                // Se o campo for o primeiro input com name 'nomeFormulario', pegue seu valor
+                camposData.push({
+                    type: campo.type,
+                    name: campo.name,
+                    value: campo.value // Adicione o valor do campo
+                });
+            } else {
+                camposData.push({
+                    type: campo.type,
+                    name: campo.name
+                });
+            }
+        });
+
+        console.log("campodata", camposData );
+
+        selects.forEach(function (select) {
+            const selectValues = [];
+            const selectName = select.name;
+            for (let i = 0; i < select.options.length; i++) {
+                selectValues.push(select.options[i].value);
+            }
+            selectData.push({
+                name: selectName,
+                optionValues: selectValues
+            });
+        });
+
+        console.log("Selectdata", selectData );
+
+        const dadosCompletos = {
+            camposData: camposData,
+            selectData: selectData
+        };
+
+        // Verifique se há campos <select> no formulário
+        if (selectData.length > 0) {
+            // Campos <select> estão presentes, você pode fazer algo com eles aqui
+            //console.log('Campos <select> estão presentes:', selectData);
+        } else {
+            // Nenhum campo <select> encontrado, você pode lidar com isso aqui
+           // console.log('Nenhum campo <select> encontrado.');
+        }
+
+        // Agora você pode enviar os dados para o PHP usando AJAX ou definir um campo oculto no formulário e definir seu valor para dadosCompletos.
+        const dadosCompletosInput = document.createElement('input');
+        dadosCompletosInput.type = 'hidden';
+        dadosCompletosInput.name = 'dadosCompletos';
+        dadosCompletosInput.value = JSON.stringify(dadosCompletos);
+        formulario.appendChild(dadosCompletosInput);
+
+        // Agora você pode enviar o formulário
+        //formulario.submit();
+    }
 
 
 
