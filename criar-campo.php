@@ -494,6 +494,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         $('#nome-campo').val('');
                         $('#tipo-campo').val('');
+                        $('#txt-ajuda-campo').val('');
                         $('.option-lista .option-item').remove();
                         $('.modal-criar-campo').css('display','none')
                         $('#nome-campo').next('small').css('display', 'none');
