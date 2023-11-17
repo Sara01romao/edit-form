@@ -36,22 +36,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 
             }
+
+            $retorno = ['codigo' => $campo_id];
+            echo json_encode($retorno);
         } 
     
     }else{
         $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
         $inserir_campo = mysqli_query($conexao, $sqlCampo);   
+
+        $campo_id = mysqli_insert_id($conexao);
+
+        $retorno = ['codigo' => $campo_id];
+        echo json_encode($retorno);
     }
 
-    
-
-    
-
-    // Ou para imprimir todos os dados:
-    echo '<pre>';
-    print_r($campo_obj);
-    echo '</pre>';
     exit();
+
 }
 ?>
 
@@ -549,6 +550,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             success: function(response) {
                                 console.log("enviado");
                                 // Lida com a resposta do PHP, se necessário
+                                var data = JSON.parse(response)
+
+                                console.log("data", data)
+
                             },
                             error: function(error) {
                                 console.error(error);
@@ -594,8 +599,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             nome: nome_campo,
                             tipo: tipo_campo,
                             ajuda: ajuda_campo,
-                            opcoes:'' 
+                            opcoes:[]
                         };
+
+                        console.log(campo_obj);
                         
                          // Use AJAX para enviar o objeto para o PHP
                          $.ajax({
@@ -659,7 +666,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             nome: nome_campo,
                             tipo: tipo_campo,
                             ajuda: ajuda_campo,
-                            opcoes:'' 
+                            opcoes:[] 
                         };
                         
                          // Use AJAX para enviar o objeto para o PHP
@@ -741,7 +748,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 //remove campo
                 function removerCampo(button) {
                     const campoContainer = button.closest(".novoCampo");
+                    const data_id = button.att(".novoCampo");
                     campoContainer.remove();
+                   
+                    console.log("remove campo")
+
+                    const campo_obj = {
+                            nome: nome_campo,
+                            codigo_campo: '',
+                            acao: 'apagar',
+                            tipo: tipo_campo,
+                            ajuda: ajuda_campo,
+                            opcoes:'' 
+                        };
+                        
+                         // Use AJAX para enviar o objeto para o PHP
+                         $.ajax({
+                            type: 'POST',
+                            url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                            data: {
+                                campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
+                            },
+                            success: function(response) {
+                                console.log("enviado");
+                                // Lida com a resposta do PHP, se necessário
+                            },
+                            error: function(error) {
+                                console.error(error);
+                            }
+                    });
+
+
+
                 }
 
 
