@@ -279,12 +279,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p>Clique no botão <strong>"+ Novo Campo"</strong> para começar a criar seu formulário.</p>
             </div>
             
+            
             <div class="form-container-campo">
-
+              
             </div>
 
             
-            <button type="button" class="salvar-form" onclick="coletarCampos()">Salvar</button>
+            <!-- <button type="button" class="salvar-form" onclick="coletarCampos()">Salvar</button> -->
     
         </form>
     </section>
@@ -532,16 +533,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 }else if(tipo_campo == "um"){
 
-                    var novoInput = document.createElement('div');
+                        var novoInput = document.createElement('div');
                         novoInput.classList.add('novoCampo');
 
                         var novoCampoId = 'campo_' + Date.now();
                         novoInput.id=novoCampoId;
-                    
-                    
-                        // Conteúdo HTML do novo item
-    
                         
+                    
+                    
+                       
+                        
+                        const campo_obj = {
+                            nome: nome_campo,
+                            tipo: tipo_campo,
+                            ajuda: ajuda_campo,
+                            opcoes:'' 
+                        };
+                        
+                         // Use AJAX para enviar o objeto para o PHP
+                         $.ajax({
+                            type: 'POST',
+                            url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                            data: {
+                                campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
+                            },
+                            success: function(response) {
+                                console.log("enviado");
+                                // Lida com a resposta do PHP, se necessário
+                            },
+                            error: function(error) {
+                                console.error(error);
+                            }
+                        });
+
+                         // Conteúdo HTML do novo item
                         novoInput.innerHTML = `
                             <div>
                                 <div class="title-campo">
@@ -580,6 +605,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     novoTextarea.classList.add('novoCampo');
                     var novoCampoId = 'campo_' + Date.now();
                         novoTextarea.id=novoCampoId;
+
+
+
+                        const campo_obj = {
+                            nome: nome_campo,
+                            tipo: tipo_campo,
+                            ajuda: ajuda_campo,
+                            opcoes:'' 
+                        };
+                        
+                         // Use AJAX para enviar o objeto para o PHP
+                         $.ajax({
+                            type: 'POST',
+                            url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                            data: {
+                                campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
+                            },
+                            success: function(response) {
+                                console.log("enviado");
+                                // Lida com a resposta do PHP, se necessário
+                            },
+                            error: function(error) {
+                                console.error(error);
+                            }
+                        });
 
                     // Conteúdo HTML do novo item
 
