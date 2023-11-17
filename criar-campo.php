@@ -279,10 +279,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p>Clique no botão <strong>"+ Novo Campo"</strong> para começar a criar seu formulário.</p>
             </div>
             
-            
+            <?php
+                $sql_campo = "SELECT * FROM `campo` ORDER BY id_campo ASC";
+                $busca_campo = mysqli_query($conexao, $sql_campo);
+            ?>
+
             <div class="form-container-campo">
-              
+                <?php
+                while ($array = mysqli_fetch_assoc($busca_campo)) {
+                    $id_campo = $array['id_campo'];
+                    $nome_campo = $array['nome_campo'];
+                    $tipo_campo = $array['tipo_campo'];
+                    $ajuda_campo = $array['ajuda_campo'];
+
+                    if ($tipo_campo == "tres") {
+                        $sql_opcao = "SELECT * FROM `opcao` WHERE id_campo_opcao = $id_campo";
+                        $busca_opcao = mysqli_query($conexao, $sql_opcao);
+                ?>
+                        <div class="novoCampo" id="<?php echo $id_campo; ?>">
+                            <div>
+                                <div>
+                                    <label><?php echo $nome_campo; ?></label>
+                                    <small><?php echo $ajuda_campo; ?></small>
+                                </div>
+                                <div>
+                                    <button type="button" class="editar-campo" onclick="editarCampo(this)">
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"></path>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="remove-campo" onclick="removerCampo(this)"> X</button>
+                                </div>
+                            </div>
+                            <select name="<?php echo $nome_campo; ?>">
+                                <?php
+                                foreach ($busca_opcao as $item_opcao) { ?>
+                                    <option value="<?php echo $item_opcao['nome_opcao'] ?>"> <?php echo $item_opcao['nome_opcao'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                <?php
+                    }
+                }
+                ?>
             </div>
+
+
+            
+           
+            <!-- <div class="form-container-campo">
+                    
+            </div> -->
 
             
             <!-- <button type="button" class="salvar-form" onclick="coletarCampos()">Salvar</button> -->
