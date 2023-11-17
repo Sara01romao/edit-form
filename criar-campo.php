@@ -1,32 +1,51 @@
 <?php
+
+include './conexao.php';
+
 // Sua página PHP (sua_pagina.php)
 
-echo('');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtém a string JSON e a decodifica para um array associativo
     $campo_obj = json_decode($_POST['campo_obj'], true);
+    
+    $nome= $campo_obj['nome'];
+    $tipo= $campo_obj['tipo'];
+    $ajuda= $campo_obj['ajuda'];
+    $opcoes= $campo_obj['opcoes'];
 
-    if (isset($campo_obj['opcoes']) && is_array($campo_obj['opcoes'])) {
-        echo 'Opções do campo:';
-        echo '<ul>';
-        foreach ($campo_obj['opcoes'] as $opcao) {
-            echo '<li>' . $opcao . '</li>';
-        }
-        echo '</ul>';
-    } else {
-        echo 'O campo não possui opções ou o formato é inválido.';
+     
+    if(isset($campo_obj['tipo']) == "tres"){
+        
+        $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
+        $inserir_campo = mysqli_query($conexao, $sqlCampo);
+
+
+        if ($inserir_campo) {
+            $campo_id = mysqli_insert_id($conexao); // Obtém o ID gerado para o campo 
+           
+
+            // Agora, insira as opções do campo <select> na tabela "opcao" com o campo_id associado
+            foreach ($opcoes as $opcao) {
+                if (!empty($opcao)) {
+                    $sqlOpcao = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$opcao', '$campo_id')";
+                    $inserir_opcao = mysqli_query($conexao, $sqlOpcao);
+                
+                }
+
+                
+            }
+        } 
+    
+    }else{
+        $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
+        $inserir_campo = mysqli_query($conexao, $sqlCampo);   
     }
 
-    // Adiciona uma mensagem de log
-    error_log("Campo Objeto: " . print_r($campo_obj, true));
+    
 
-    // Agora você pode usar $campo_obj como quiser
-    // Por exemplo, para imprimir o nome do campo:
-    echo 'Nome do campo: ' . $campo_obj['nome'];
-
-    echo('Sara');
+    
 
     // Ou para imprimir todos os dados:
     echo '<pre>';
