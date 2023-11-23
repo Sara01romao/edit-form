@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
 
     <section class="novo-formulario-container">
-        <h1>Criar Campo</h1>
+        <h1>Criar Campos</h1>
         <form action="" id="novo-form">
         
            
@@ -484,13 +484,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         var novoSelect = document.createElement('div');
                         novoSelect.classList.add('novoCampo')
 
-                        var novoCampoId = 'campo_' + Date.now();
-                        novoSelect.id=novoCampoId;
-                    
-
-                        
-
-
 
                         // Conteúdo HTML do novo item
     
@@ -499,33 +492,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         .map(item => `<option value="${item}">${item}</option>`) // Cria elementos <option> para cada item
                         .join('');
                         
-                        novoSelect.innerHTML = `
-                            <div>
-                                <div>
-                                    <label >${nome_campo}</label>
-                                    <small>${ajuda_campo}</small>
-                                </div>
-                                <div>
-                                    <button type='button' class='editar-campo' onclick='editarCampo(this)'>
-                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
-                                        </svg>
-                                            
-                                    </button>
-                                    <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
-                                </div>
-                            </div>
-                            <select name='${nome_campo}'>
-                                ${opcoesHTML}
-                            </select>
-
-                                
-                        `;
-                        
-                        
-
-
-                        
+                       // informações do campo
                         const campo_obj = {
                             nome: nome_campo,
                             tipo: tipo_campo,
@@ -552,7 +519,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 // Lida com a resposta do PHP, se necessário
                                 var data = JSON.parse(response)
 
+                                novoSelect.id= data.codigo;
+                                   
+                                novoSelect.innerHTML = `
+                                    <div>
+                                        <div>
+                                            <label >${nome_campo}</label>
+                                            <small>${ajuda_campo}</small>
+                                        </div>
+                                        <div>
+                                            <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
+                                                </svg>
+                                                    
+                                            </button>
+                                            <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                        </div>
+                                    </div>
+                                    <select name='${nome_campo}'>
+                                        ${opcoesHTML}
+                                    </select>
+
+                                        
+                                `;
+
+
                                 console.log("data", data)
+
+
+                                
+                                $('#novo-form .form-container-campo').append(novoSelect);
+
+                                $('#nome-campo').val('');
+                                $('#tipo-campo').val('');
+                                $('#txt-ajuda-campo').val('');
+                                $('.option-lista .option-item').remove();
+                                $('.modal-criar-campo').css('display','none')
+                                $('#nome-campo').next('small').css('display', 'none');
+                                $('#tipo-campo').next('small').css('display', 'none');
+                                $('.option-container').css('display', 'none');
 
                             },
                             error: function(error) {
@@ -562,16 +568,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-                        $('#novo-form .form-container-campo').append(novoSelect);
-
-                        $('#nome-campo').val('');
-                        $('#tipo-campo').val('');
-                        $('#txt-ajuda-campo').val('');
-                        $('.option-lista .option-item').remove();
-                        $('.modal-criar-campo').css('display','none')
-                        $('#nome-campo').next('small').css('display', 'none');
-                        $('#tipo-campo').next('small').css('display', 'none');
-                        $('.option-container').css('display', 'none');
 
                     }else{
                         
@@ -588,13 +584,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         var novoInput = document.createElement('div');
                         novoInput.classList.add('novoCampo');
 
-                        var novoCampoId = 'campo_' + Date.now();
-                        novoInput.id=novoCampoId;
-                        
-                    
-                    
                        
-                        
                         const campo_obj = {
                             nome: nome_campo,
                             tipo: tipo_campo,
@@ -614,51 +604,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             success: function(response) {
                                 console.log("enviado");
                                 // Lida com a resposta do PHP, se necessário
+                                var data = JSON.parse(response);
+
+                                
+                                novoInput.id= data.codigo;
+
+
+                                // Conteúdo HTML do novo item
+                                novoInput.innerHTML = `
+                                    <div>
+                                        <div class="title-campo">
+                                            <label >${nome_campo}</label>
+                                            <small>${ajuda_campo}</small>
+                                        </div>
+                                        <div>
+                                            <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
+                                                </svg>
+                                            </button>
+                                            <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                        </div>
+                                    </div>
+                                    <input type="text" name='${nome_campo}'>
+
+                                        
+                                `;
+                                
+                            
+                                $('.option-item').remove()
+                                $('#novo-form .form-container-campo').append(novoInput);
+
+                                $('#nome-campo').val('');
+                                $('#tipo-campo').val('');
+                                $('#txt-ajuda-campo').val('');
+                                $('.option-lista .option-item').remove();
+                                $('.modal-criar-campo').css('display','none')
+                                $('#nome-campo').next('small').css('display', 'none');
+                                $('#tipo-campo').next('small').css('display', 'none');
+
+
                             },
                             error: function(error) {
                                 console.error(error);
                             }
                         });
 
-                         // Conteúdo HTML do novo item
-                        novoInput.innerHTML = `
-                            <div>
-                                <div class="title-campo">
-                                    <label >${nome_campo}</label>
-                                    <small>${ajuda_campo}</small>
-                                </div>
-                                <div>
-                                    <button type='button' class='editar-campo' onclick='editarCampo(this)'>
-                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
-                                        </svg>
-                                    </button>
-                                    <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
-                                </div>
-                            </div>
-                            <input type="text" name='${nome_campo}'>
-
-                                
-                        `;
                         
-                    
-                        $('.option-item').remove()
-                        $('#novo-form .form-container-campo').append(novoInput);
-
-                        $('#nome-campo').val('');
-                        $('#tipo-campo').val('');
-                        $('#txt-ajuda-campo').val('');
-                        $('.option-lista .option-item').remove();
-                        $('.modal-criar-campo').css('display','none')
-                        $('#nome-campo').next('small').css('display', 'none');
-                        $('#tipo-campo').next('small').css('display', 'none');
 
                 }else if(tipo_campo == "dois"){
 
                     var novoTextarea = document.createElement('div');
                     novoTextarea.classList.add('novoCampo');
-                    var novoCampoId = 'campo_' + Date.now();
-                        novoTextarea.id=novoCampoId;
+                    
 
 
 
@@ -678,7 +676,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             },
                             success: function(response) {
                                 console.log("enviado");
+                              
                                 // Lida com a resposta do PHP, se necessário
+                                var data = JSON.parse(response);
+
+
+                                
+                                novoTextarea.id=data.codigo;
+                                
+                            novoTextarea.innerHTML = `
+                                <div>
+                                    
+                                    <div class="title-campo">
+                                        <label >${nome_campo}</label>
+                                        <small>${ajuda_campo}</small>
+                                    </div>
+                                    
+                                    <div>
+                                        <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
+                                            </svg>    
+                                        </button>
+                                        <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                    </div>
+                                </div>
+                                
+                                <textarea name='${nome_campo}'></textarea>
+
+                                    
+                            `;
+                            
+
+                                $('.option-lista .option-item').remove()
+                                $('#novo-form .form-container-campo').append(novoTextarea);
+
+                                $('#nome-campo').val('');
+                                $('#tipo-campo').val('');
+                                $('#txt-ajuda-campo').val('');
+                                $('.option-lista .option-item').remove();
+                                $('.modal-criar-campo').css('display','none')
+                                $('#nome-campo').next('small').css('display', 'none');
+                                $('#tipo-campo').next('small').css('display', 'none');
+
                             },
                             error: function(error) {
                                 console.error(error);
@@ -688,40 +728,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Conteúdo HTML do novo item
 
                     
-                    novoTextarea.innerHTML = `
-                        <div>
-                            
-                            <div class="title-campo">
-                                <label >${nome_campo}</label>
-                                <small>${ajuda_campo}</small>
-                            </div>
-                            
-                            <div>
-                                <button type='button' class='editar-campo' onclick='editarCampo(this)'>
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
-                                    </svg>    
-                                </button>
-                                <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
-                            </div>
-                        </div>
-                        
-                        <textarea name='${nome_campo}'></textarea>
-
-                            
-                    `;
-                    
-
-                        $('.option-lista .option-item').remove()
-                        $('#novo-form .form-container-campo').append(novoTextarea);
-
-                        $('#nome-campo').val('');
-                        $('#tipo-campo').val('');
-                        $('#txt-ajuda-campo').val('');
-                        $('.option-lista .option-item').remove();
-                        $('.modal-criar-campo').css('display','none')
-                        $('#nome-campo').next('small').css('display', 'none');
-                        $('#tipo-campo').next('small').css('display', 'none');
                 }
 
                  
@@ -1153,83 +1159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 
 
-<script>
-/*------Coletar campo----------------------------------------------------------------------------------------------------------------*/
-       
 
-    //coleta os campos para enviar para php
-    function coletarCampos() {
-        const formulario = document.getElementById('novo-form');
-        const campos = formulario.querySelectorAll('input[type="text"], textarea');
-        const selects = formulario.querySelectorAll('.campo-container select');
-
-        console.log("Form", formulario);
-        console.log("campo", campos);
-
-        const camposData = [];
-        const selectData = [];
-
-        campos.forEach(function (campo) {
-            if (campo.name === 'nome-formulario') {
-                // Se o campo for o primeiro input com name 'nomeFormulario', pegue seu valor
-                camposData.push({
-                    type: campo.type,
-                    name: campo.name,
-                    value: campo.value // Adicione o valor do campo
-                });
-            } else {
-                camposData.push({
-                    type: campo.type,
-                    name: campo.name
-                });
-            }
-        });
-
-        console.log("campodata", camposData );
-
-        selects.forEach(function (select) {
-            const selectValues = [];
-            const selectName = select.name;
-            for (let i = 0; i < select.options.length; i++) {
-                selectValues.push(select.options[i].value);
-            }
-            selectData.push({
-                name: selectName,
-                optionValues: selectValues
-            });
-        });
-
-        console.log("Selectdata", selectData );
-
-        const dadosCompletos = {
-            camposData: camposData,
-            selectData: selectData
-        };
-
-        // Verifique se há campos <select> no formulário
-        if (selectData.length > 0) {
-            // Campos <select> estão presentes, você pode fazer algo com eles aqui
-            //console.log('Campos <select> estão presentes:', selectData);
-        } else {
-            // Nenhum campo <select> encontrado, você pode lidar com isso aqui
-           // console.log('Nenhum campo <select> encontrado.');
-        }
-
-        // Agora você pode enviar os dados para o PHP usando AJAX ou definir um campo oculto no formulário e definir seu valor para dadosCompletos.
-        const dadosCompletosInput = document.createElement('input');
-        dadosCompletosInput.type = 'hidden';
-        dadosCompletosInput.name = 'dadosCompletos';
-        dadosCompletosInput.value = JSON.stringify(dadosCompletos);
-        formulario.appendChild(dadosCompletosInput);
-
-        // Agora você pode enviar o formulário
-        //formulario.submit();
-    }
-
-
-
-  
-    </script>
 
 
 </body>
