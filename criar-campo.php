@@ -6,53 +6,88 @@ include './conexao.php';
 
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtém a string JSON e a decodifica para um array associativo
-    $campo_obj = json_decode($_POST['campo_obj'], true);
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     // Obtém a string JSON e a decodifica para um array associativo
+//     $campo_obj = json_decode($_POST['campo_obj'], true);
     
+//     $nome= $campo_obj['nome'];
+//     $tipo= $campo_obj['tipo'];
+//     $ajuda= $campo_obj['ajuda'];
+//     $opcoes= $campo_obj['opcoes'];
+
+     
+//     if(isset($campo_obj['tipo']) == "tres"){
+        
+//         $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
+//         $inserir_campo = mysqli_query($conexao, $sqlCampo);
+
+
+//         if ($inserir_campo) {
+//             $campo_id = mysqli_insert_id($conexao); // Obtém o ID gerado para o campo 
+           
+
+//             // Agora, insira as opções do campo <select> na tabela "opcao" com o campo_id associado
+//             foreach ($opcoes as $opcao) {
+//                 if (!empty($opcao)) {
+//                     $sqlOpcao = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$opcao', '$campo_id')";
+//                     $inserir_opcao = mysqli_query($conexao, $sqlOpcao);
+                
+//                 }
+
+                
+//             }
+
+//             $retorno = ['codigo' => $campo_id];
+//             echo json_encode($retorno);
+//         } 
+    
+//     }else{
+//         $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
+//         $inserir_campo = mysqli_query($conexao, $sqlCampo);   
+
+//         $campo_id = mysqli_insert_id($conexao);
+
+//         $retorno = ['codigo' => $campo_id];
+//         echo json_encode($retorno);
+//     }
+
+//     exit();
+
+// }
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $action = isset($_POST['action']) ? $_POST['action'] : '';
+    
+    $campo_obj = json_decode($_POST['campo_obj'], true);
+
     $nome= $campo_obj['nome'];
     $tipo= $campo_obj['tipo'];
     $ajuda= $campo_obj['ajuda'];
     $opcoes= $campo_obj['opcoes'];
+    $id = $campo_obj['id_campo'];
+   
+    var_dump($opcoes);
+   
 
-     
-    if(isset($campo_obj['tipo']) == "tres"){
+    if($action == 'edit'){
+
+        $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome' WHERE id_campo = $id ";
         
-        $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
-        $inserir_campo = mysqli_query($conexao, $sqlCampo);
+        $edit_campo = mysqli_query($conexao, $sqlEditCampo);
+         
+        if($edit_campo){
+            echo "Enviado edit. $nome";
 
+            
+        }
 
-        if ($inserir_campo) {
-            $campo_id = mysqli_insert_id($conexao); // Obtém o ID gerado para o campo 
-           
-
-            // Agora, insira as opções do campo <select> na tabela "opcao" com o campo_id associado
-            foreach ($opcoes as $opcao) {
-                if (!empty($opcao)) {
-                    $sqlOpcao = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$opcao', '$campo_id')";
-                    $inserir_opcao = mysqli_query($conexao, $sqlOpcao);
-                
-                }
-
-                
-            }
-
-            $retorno = ['codigo' => $campo_id];
-            echo json_encode($retorno);
-        } 
-    
-    }else{
-        $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
-        $inserir_campo = mysqli_query($conexao, $sqlCampo);   
-
-        $campo_id = mysqli_insert_id($conexao);
-
-        $retorno = ['codigo' => $campo_id];
-        echo json_encode($retorno);
+       
     }
-
-    exit();
-
+    
+    
 }
 ?>
 
@@ -214,6 +249,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="text" name="id-campo" id="id-campo" disabled="disabled">
                     <small class="erro-campo">Preencha o campo</small>
                 </div>
+                
+                <div class="campo-input">
+                    <label for="">Texto de ajuda (abaixo da pergunta): <small>opcional</small></label>
+                    <input type="text" name="txt-ajuda-campo-edit" id="txt-ajuda-campo-edit" required>
+                    
+                </div>
+
                 
                 <div class="campo-input">
                     <label for="">Selecione o tipo</label>
@@ -796,6 +838,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $('.close-modal-edit').on("click", function(){
             
             $('#nome-campo-edit').val('');
+            $('#txt-ajuda-campo-edit').val('');
             
             $('#tipo-campo-edit').val('');
             $('.option-lista-edit .option-item').remove();
@@ -803,7 +846,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $('.modal-edit-campo').css('display','none')
             $('#input-option').val('');
             $('.option-container').css('display', 'none');
-
+            
             $('#tipo-campo-edit').next('small').css('display', 'none');
             $('#nome-campo-edit').next('small').css('display', 'none');
  
@@ -824,7 +867,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             const inputElement = campoContainer.find("input");
             const textareaElement = campoContainer.find("textarea");
-              
+
+            var ajuda_campo_edit = campoContainer.find("small").text();
+             
+          
             
             $('#id-campo').val(idCampo);
             
@@ -834,9 +880,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 var select_name = selectElement.attr('name');
                 $('.form-edit-campo #nome-campo-edit ').val(select_name );
+                $('#txt-ajuda-campo-edit').val(ajuda_campo_edit);
               
                 $('.form-edit-campo #tipo-campo-edit').val("tres").change();
-
+                
                 
                 var option_campo_edit = selectElement.find("option");
                   
@@ -985,11 +1032,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             var tipo_campo = document.getElementById('tipo-campo-edit').value;
             var nome_campo = document.getElementById('nome-campo-edit').value;
+            var ajuda_campo = document.getElementById('txt-ajuda-campo-edit').value;
             var id_campo = document.getElementById('id-campo').value;
 
-            console.log(tipo_campo, id_campo, nome_campo)
+            console.log("ajuda", ajuda_campo)
            
-            if(nome_campo !== ''&& tipo_campo !== ''){
+            if(nome_campo !== '' && tipo_campo !== ''){
 
                     if(tipo_campo == "tres"){
 
@@ -1014,10 +1062,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             .filter(item => item !== '') // Filtra os itens que não são vazios
                             .map(item => `<option value="${item}">${item}</option>`) // Cria elementos <option> para cada item
                             .join('');
+                            
+                            
+                            const campo_obj = {
+                                nome: nome_campo,
+                                tipo: tipo_campo,
+                                ajuda: ajuda_campo,
+                                id_campo: id_campo,
+                                opcoes: lista_opcoes
+                            };
+                        
+
+                            console.log(campo_obj);
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                                
+                                data: { 
+                                    action: "edit", 
+                                    id_campo: id_campo,
+                                    campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
+                                },
+                                
+                                success: function(response) {
+                                    console.log("enviado edição");
+                                
+                                    // Lida com a resposta do PHP, se necessário
+                                    // var data = JSON.parse(response);
+
+
+
+                                },
+                                error: function(error) {
+                                    console.error(error);
+                                }
+                            });
+
+
 
                             novoSelect.innerHTML = `
                                 <div>
-                                    <label >${nome_campo}</label>
+                                     <div class="title-campo">
+                                        <label >${nome_campo}</label>
+                                        <small>${ajuda_campo}</small>
+                                     </div>
+                                
                                     <div>
                                         <button type='button' class='editar-campo' onclick='editarCampo(this)'>
                                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1042,6 +1132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $('#nome-campo-edit').val('');
                             $('#id-campo').val('');
                             $('#tipo-campo-edit').val('');
+                            $('#txt-ajuda-campo-edit').val('');
                             $('#nome-campo-edit').next("small").css('display', 'none')
                             $('.option-lista-edit .option-item').remove();
                             $('.modal-edit-campo').css('display','none')
@@ -1073,7 +1164,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             
                             novoInput.innerHTML = `
                                 <div>
-                                    <label >${nome_campo}</label>
+                                    <div class="title-campo">
+                                        <label >${nome_campo}</label>
+                                        <small>${ajuda_campo}</small>
+                                     </div>
                                     <div>
                                         <button type='button' class='editar-campo' onclick='editarCampo(this)'>
                                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1094,6 +1188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $('#nome-campo-edit').val('');
                             $('#id-campo').val('');
                             $('#tipo-campo-edit').val('');
+                            $('#txt-ajuda-campo-edit').val('');
                             $('#nome-campo-edit').next("small").css('display', 'none')
                             $('.option-lista-edit .option-item').remove();
                             $('.modal-edit-campo').css('display','none')
@@ -1110,7 +1205,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         novoTextarea.innerHTML = `
                             <div>
-                                <label >${nome_campo}</label>
+                                    <div class="title-campo">
+                                        <label >${nome_campo}</label>
+                                        <small>${ajuda_campo}</small>
+                                     </div>
                                 
                                 <div>
                                     <button type='button' class='editar-campo' onclick='editarCampo(this)'>
@@ -1133,6 +1231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $('#nome-campo-edit').val('');
                         $('#id-campo').val('');
                         $('#tipo-campo-edit').val('');
+                        $('#txt-ajuda-campo-edit').val('');
                         $('#nome-campo-edit').next("small").css('display', 'none')
                         $('.option-lista-edit .option-item').remove();
                         $('.modal-edit-campo').css('display','none')
@@ -1160,7 +1259,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-
+                      
 
 </body>
 </html>
