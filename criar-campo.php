@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ajuda= $campo_obj['ajuda'];
     $opcoes= $campo_obj['opcoes'];
     
-    // var_dump($opcoes);
+    var_dump($opcoes);
    
     if($action == 'create'){
 
@@ -116,17 +116,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }elseif($action == 'edit'){
         $id = $campo_obj['id_campo'];
-         echo $tipo;
-        $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo' WHERE id_campo = $id ";
-        
-        $edit_campo = mysqli_query($conexao, $sqlEditCampo);
-         
+        echo $tipo;
 
-        if($edit_campo){
-            echo "Enviado edit. $nome";
+
+        
+            $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
+        
+            $edit_campo = mysqli_query($conexao, $sqlEditCampo);
+            
+
+            if($tipo == "um" || $tipo ="dois"){
+                
+                $sqlOpcoes = "SELECT COUNT(*) FROM `opcao` WHERE `id_campo_opcao` = $id";
+                $remove_opcoes = mysqli_query($conexao, $sqlOpcoes);
+
+                
+                 
+
+
+
+                
+
+                
+
+            }
+
+
+
+           
 
             
-        }
+
+        
+        
 
        
     } 
@@ -979,7 +1001,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 var select_name = selectElement.attr('name');
                 $('.form-edit-campo #nome-campo-edit ').val(select_name );
-                $('#txt-ajuda-campo-edit').val(ajuda_campo_edit);
+               
+
+                $('.form-edit-campo #txt-ajuda-campo-edit ').val(ajuda_campo_edit );
               
                 $('.form-edit-campo #tipo-campo-edit').val("tres").change();
                 
@@ -1041,12 +1065,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else if(inputElement.length > 0){
                 var input_name = inputElement.attr('name');
                 $('.form-edit-campo #nome-campo-edit ').val(input_name );
+                $('.form-edit-campo #txt-ajuda-campo-edit ').val(ajuda_campo_edit );
               
                 $('.form-edit-campo #tipo-campo-edit').val("um").change();
 
             }else if(textareaElement.length > 0){
                 var textarea_name = textareaElement.attr('name');
                 $('.form-edit-campo #nome-campo-edit ').val(textarea_name);
+                $('.form-edit-campo #txt-ajuda-campo-edit ').val(ajuda_campo_edit );
               
                 $('.form-edit-campo #tipo-campo-edit').val("dois").change();
 
@@ -1190,6 +1216,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     // Lida com a resposta do PHP, se necessário
                                     // var data = JSON.parse(response);
 
+                                    novoSelect.innerHTML = `
+                                        <div>
+                                            <div class="title-campo">
+                                                <label >${nome_campo}</label>
+                                                <small>${ajuda_campo}</small>
+                                            </div>
+                                        
+                                            <div>
+                                                <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
+                                                    </svg>
+                                                </button>
+                                                <button type='button' class='remove-campo' onclick='removerCampo(this)'>X</button>
+                                            </div>
+                                        </div>
+                                        <select name='${nome_campo}'>
+                                            ${opcoesHTML}
+                                        </select>
+
+                                            
+                                    `;
+                                    
+                            
+
+                                        $('#novo-form').find('#'+id_campo).replaceWith(novoSelect);
+                                        //$('#novo-form').append(novoSelect);
+
+                                        $('#nome-campo-edit').val('');
+                                        $('#id-campo').val('');
+                                        $('#tipo-campo-edit').val('');
+                                        $('#txt-ajuda-campo-edit').val('');
+                                        $('#nome-campo-edit').next("small").css('display', 'none')
+                                        $('.option-lista-edit .option-item').remove();
+                                        $('.modal-edit-campo').css('display','none')
+                                        
+            
 
 
                                 },
@@ -1200,42 +1263,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-                            novoSelect.innerHTML = `
-                                <div>
-                                     <div class="title-campo">
-                                        <label >${nome_campo}</label>
-                                        <small>${ajuda_campo}</small>
-                                     </div>
-                                
-                                    <div>
-                                        <button type='button' class='editar-campo' onclick='editarCampo(this)'>
-                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
-                                            </svg>
-                                        </button>
-                                        <button type='button' class='remove-campo' onclick='removerCampo(this)'>X</button>
-                                    </div>
-                                </div>
-                                <select name='${nome_campo}'>
-                                    ${opcoesHTML}
-                                </select>
-
-                                    
-                            `;
-                            
-                            
-
-                            $('#novo-form').find('#'+id_campo).replaceWith(novoSelect);
-                            //$('#novo-form').append(novoSelect);
-
-                            $('#nome-campo-edit').val('');
-                            $('#id-campo').val('');
-                            $('#tipo-campo-edit').val('');
-                            $('#txt-ajuda-campo-edit').val('');
-                            $('#nome-campo-edit').next("small").css('display', 'none')
-                            $('.option-lista-edit .option-item').remove();
-                            $('.modal-edit-campo').css('display','none')
-                            
+                           
                             
                             
 
