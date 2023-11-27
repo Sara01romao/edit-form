@@ -67,13 +67,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipo= $campo_obj['tipo'];
     $ajuda= $campo_obj['ajuda'];
     $opcoes= $campo_obj['opcoes'];
-    $id = $campo_obj['id_campo'];
+    
+    // var_dump($opcoes);
    
-    var_dump($opcoes);
+    if($action == 'create'){
+
+
+        if(isset($campo_obj['tipo']) == "tres"){
+        
+            $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
+            $inserir_campo = mysqli_query($conexao, $sqlCampo);
+
+
+            if ($inserir_campo) {
+                $campo_id = mysqli_insert_id($conexao); // Obtém o ID gerado para o campo 
+                
+
+                // Agora, insira as opções do campo <select> na tabela "opcao" com o campo_id associado
+                foreach ($opcoes as $opcao) {
+                    if (!empty($opcao)) {
+                        $sqlOpcao = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$opcao', '$campo_id')";
+                        $inserir_opcao = mysqli_query($conexao, $sqlOpcao);
+                    
+                    }
+
+                    
+                }
+
+                $retorno = ['codigo' => $campo_id];
+                echo json_encode($retorno);
+            } 
+        
+        }else{
+            $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
+            $inserir_campo = mysqli_query($conexao, $sqlCampo);   
+    
+            $campo_id = mysqli_insert_id($conexao);
+    
+            $retorno = ['codigo' => $campo_id];
+            echo  json_encode($retorno);
+        }
+    
+        exit();
+
+
+
+
+
+    }elseif($action == 'edit'){
+        $id = $campo_obj['id_campo'];
    
-
-    if($action == 'edit'){
-
         $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome' WHERE id_campo = $id ";
         
         $edit_campo = mysqli_query($conexao, $sqlEditCampo);
@@ -85,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
        
-    }
+    } 
     
     
 }
@@ -361,13 +404,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <?php } ?>
                             </select>
                         </div>
-                <?php
+                     <?php
+                    } elseif ($tipo_campo == "um") {
+                        ?>
+                        <div class="novoCampo" id="<?php echo $id_campo; ?>">
+                            <!-- Rest of your HTML and PHP code for "um" type -->
+
+                            <div>
+                                <div class="title-campo">
+                                    <label ><?php echo $nome_campo; ?></label>
+                                    <small><?php echo $ajuda_campo; ?></small>
+                                </div>
+                                
+                                <div>
+                                    <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
+                                        </svg>
+                                    </button>
+                                    <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                </div>
+                            </div>
+                            <input type="text" name="<?php echo $nome_campo; ?>">
+                        </div>
+                        <?php
+
+                    }elseif ($tipo_campo == "dois") {
+                        ?>
+                        <div class="novoCampo" id="<?php echo $id_campo; ?>">
+                            <div>
+                                            
+                                <div class="title-campo">
+                                    <label ><?php echo $nome_campo; ?></label>
+                                    <small><?php echo $ajuda_campo; ?></small>
+                                </div>
+                                
+                                <div>
+                                    <button type='button' class='editar-campo' onclick='editarCampo(this)'>
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#21813C"/>
+                                        </svg>    
+                                    </button>
+                                    <button type='button' class='remove-campo' onclick='removerCampo(this)'> X</button>
+                                </div>
+                            </div>
+                            
+                            <textarea name="<?php echo $nome_campo; ?>"></textarea>
+                        </div>
+                        <?php
                     }
                 }
                 ?>
             </div>
 
+                    
+           
 
+            
+                
             
            
             <!-- <div class="form-container-campo">
@@ -380,7 +474,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </section>
   
-
+    
 
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -554,6 +648,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             type: 'POST',
                             url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                             data: {
+                                action: "create", 
                                 campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
                             },
                             success: function(response) {
@@ -641,16 +736,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             type: 'POST',
                             url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                             data: {
+                                action: "create", 
                                 campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
+                                
+                            
                             },
                             success: function(response) {
-                                console.log("enviado");
                                 // Lida com a resposta do PHP, se necessário
                                 var data = JSON.parse(response);
-
                                 
                                 novoInput.id= data.codigo;
-
+                                 
 
                                 // Conteúdo HTML do novo item
                                 novoInput.innerHTML = `
@@ -714,6 +810,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             type: 'POST',
                             url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                             data: {
+                                action: "create", 
                                 campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
                             },
                             success: function(response) {
@@ -857,6 +954,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //editar
         function editarCampo(button) {
+            
             
 
             $('.modal-edit-campo').css('display','flex')
