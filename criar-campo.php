@@ -5,88 +5,8 @@ include './conexao.php';
 
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $action = isset($_POST['action']) ? $_POST['action'] : '';
-    
-    $campo_obj = json_decode($_POST['campo_obj'], true);
-
-    $nome= $campo_obj['nome'];
-    $tipo= $campo_obj['tipo'];
-    $ajuda= $campo_obj['ajuda'];
-    $opcoes= $campo_obj['opcoes'];
-    
-    // var_dump($opcoes);
-   
-    if($action == 'create'){
 
 
-        if(isset($campo_obj['tipo']) == "tres"){
-        
-            $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
-            $inserir_campo = mysqli_query($conexao, $sqlCampo);
-
-
-            if ($inserir_campo) {
-                $campo_id = mysqli_insert_id($conexao); // Obtém o ID gerado para o campo 
-                
-
-                // Agora, insira as opções do campo <select> na tabela "opcao" com o campo_id associado
-                foreach ($opcoes as $opcao) {
-                    if (!empty($opcao)) {
-                        $sqlOpcao = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$opcao', '$campo_id')";
-                        $inserir_opcao = mysqli_query($conexao, $sqlOpcao);
-                    
-                    }
-
-                    
-                }
-
-                $retorno = ['codigo' => $campo_id];
-                echo json_encode($retorno);
-            } 
-        
-        }else{
-            $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
-            $inserir_campo = mysqli_query($conexao, $sqlCampo);   
-    
-            $campo_id = mysqli_insert_id($conexao);
-    
-            $retorno = ['codigo' => $campo_id];
-            echo  json_encode($retorno);
-        }
-    
-        exit();
-
-
-
-
-
-    }elseif($action == 'edit'){
-        $id = $campo_obj['id_campo'];
-      
-
-
-        
-            //$sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
-        
-            //$edit_campo = mysqli_query($conexao, $sqlEditCampo);
-            
-
-            if($tipo == "um" || $tipo ="dois"){
-                
-                $sqlOpcoes = "SELECT COUNT(*) FROM `opcao` WHERE `id_campo_opcao` = $id";
-                $remove_opcoes = mysqli_query($conexao, $sqlOpcoes);
-
-                var_dump($remove_opcoes);
-                 
-            }
-
-       
-    } 
-    
-    
-}
 ?>
 
 
@@ -98,6 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -856,25 +779,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    
                     console.log("remove campo", data_id)
 
+
+
+
+                    Swal.fire({
+                        title: 'Excluir campo',
+                        text: "Tem certeza que você deseja excluir esse campo?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#dd3333',
+                        cancelButtonColor: '#5cb85c',
+                        confirmButtonText: 'Sim, excluir',
+                        cancelButtonText: 'Não'
+                            }).then((result) => {
+
+                                if (result.isConfirmed) {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                                        data: {
+                                            action: "apagarCampo", 
+                                            idCampo: data_id,
+                                        },
+                                        success: function(response) {
+                                            
+                                            campoContainer.remove();
+                                        
+                                        },
+                                        error: function(error) {
+                                            console.error(error);
+                                        }
+                                    });
+                                }
+
+                    })
+
                    
                         
                          // Use AJAX para enviar o objeto para o PHP
-                        $.ajax({
-                            type: 'POST',
-                            url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
-                            data: {
-                                action: "apagarCampo", 
-                                idCampo: data_id,
-                            },
-                            success: function(response) {
-                                
-                                 campoContainer.remove();
-                            
-                            },
-                            error: function(error) {
-                                console.error(error);
-                            }
-                        });
+                        
 
 
 
@@ -1388,6 +1331,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             
         });
+
+
+
+         // Exemplo de uso do SweetAlert
+  
+
+
+          
 
     </script>
 

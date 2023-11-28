@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome= $campo_obj['nome'];
         $tipo= $campo_obj['tipo'];
         $ajuda= $campo_obj['ajuda'];
-        $opcoes= $campo_obj['opcoes'];
+        // $opcoes= $campo_obj['opcoes'];
         $id = $campo_obj['id_campo'];
         echo $tipo;
 
@@ -142,7 +142,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $row = mysqli_fetch_array($resultCheckOpcoes);
                     $optionCount = $row[0];
 
-                    mysqli_free_result($resultCheckOpcoes); // Corrected typo in variable name
+                 
+
+                    mysqli_free_result($resultCheckOpcoes); 
 
                     if ($optionCount > 0) {
                         $sqlDeleteOpcoes = "DELETE FROM `opcao` WHERE `id_campo_opcao` = $id";
@@ -159,6 +161,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Handle the error for checking options
                     echo "Error checking options: " . mysqli_error($conexao);
                 }
+            }else{
+                        $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
+                        $edit_campo = mysqli_query($conexao, $sqlEditCampo);
             }
 
 
