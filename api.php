@@ -129,20 +129,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         
-            //$sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
-        
-            //$edit_campo = mysqli_query($conexao, $sqlEditCampo);
+            
             
 
             if($tipo == "um" || $tipo ="dois"){
                 
-                $sqlOpcoes = "SELECT COUNT(*) FROM `opcao` WHERE `id_campo_opcao` = $id";
-                $remove_opcoes = mysqli_query($conexao, $sqlOpcoes);
+                
+                $sqlCheckOpcoes = "SELECT COUNT(*) FROM `opcao` WHERE `id_campo_opcao` = $id";
+                $resultCheckOpcoes = mysqli_query($conexao, $sqlCheckOpcoes);
 
-                // var_dump($remove_opcoes);
-                 
+                if ($resultCheckOpcoes) {
+                    $row = mysqli_fetch_array($resultCheckOpcoes);
+                    $optionCount = $row[0];
 
+                    mysqli_free_result($resultCheckOpcoes); // Corrected typo in variable name
+
+                    if ($optionCount > 0) {
+                        $sqlDeleteOpcoes = "DELETE FROM `opcao` WHERE `id_campo_opcao` = $id";
+                        $delete_opcoes = mysqli_query($conexao, $sqlDeleteOpcoes);
+
+                        $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
+                        $edit_campo = mysqli_query($conexao, $sqlEditCampo);
+
+                    } else {
+                        $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
+                        $edit_campo = mysqli_query($conexao, $sqlEditCampo);
+                    }
+                } else {
+                    // Handle the error for checking options
+                    echo "Error checking options: " . mysqli_error($conexao);
+                }
             }
+
+
+          
+
+
 
        
     }elseif($action == 'apagarCampo'){

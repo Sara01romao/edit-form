@@ -601,7 +601,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         // Use AJAX para enviar o objeto para o PHP
                         $.ajax({
                             type: 'POST',
-                            url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                            url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                             data: {
                                 action: "create", 
                                 campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
@@ -763,7 +763,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          // Use AJAX para enviar o objeto para o PHP
                          $.ajax({
                             type: 'POST',
-                            url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                            url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                             data: {
                                 action: "create", 
                                 campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
@@ -1132,7 +1132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             $.ajax({
                                 type: 'POST',
-                                url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                                url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                                 
                                 data: { 
                                     action: "edit", 
@@ -1228,7 +1228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             $.ajax({
                                 type: 'POST',
-                                url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                                url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                                 
                                 data: { 
                                     action: "edit", 
@@ -1309,7 +1309,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         $.ajax({
                             type: 'POST',
-                            url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                            url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                             
                             data: { 
                                 action: "edit", 
