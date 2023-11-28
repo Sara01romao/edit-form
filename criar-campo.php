@@ -2,58 +2,6 @@
 
 include './conexao.php';
 
-// Sua página PHP (sua_pagina.php)
-
-
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     // Obtém a string JSON e a decodifica para um array associativo
-//     $campo_obj = json_decode($_POST['campo_obj'], true);
-    
-//     $nome= $campo_obj['nome'];
-//     $tipo= $campo_obj['tipo'];
-//     $ajuda= $campo_obj['ajuda'];
-//     $opcoes= $campo_obj['opcoes'];
-
-     
-//     if(isset($campo_obj['tipo']) == "tres"){
-        
-//         $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
-//         $inserir_campo = mysqli_query($conexao, $sqlCampo);
-
-
-//         if ($inserir_campo) {
-//             $campo_id = mysqli_insert_id($conexao); // Obtém o ID gerado para o campo 
-           
-
-//             // Agora, insira as opções do campo <select> na tabela "opcao" com o campo_id associado
-//             foreach ($opcoes as $opcao) {
-//                 if (!empty($opcao)) {
-//                     $sqlOpcao = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$opcao', '$campo_id')";
-//                     $inserir_opcao = mysqli_query($conexao, $sqlOpcao);
-                
-//                 }
-
-                
-//             }
-
-//             $retorno = ['codigo' => $campo_id];
-//             echo json_encode($retorno);
-//         } 
-    
-//     }else{
-//         $sqlCampo = "INSERT INTO `campo` (`nome_campo`, `tipo_campo`, `ajuda_campo`) VALUES ('$nome', '$tipo', '$ajuda')";
-//         $inserir_campo = mysqli_query($conexao, $sqlCampo);   
-
-//         $campo_id = mysqli_insert_id($conexao);
-
-//         $retorno = ['codigo' => $campo_id];
-//         echo json_encode($retorno);
-//     }
-
-//     exit();
-
-// }
 
 
 
@@ -68,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ajuda= $campo_obj['ajuda'];
     $opcoes= $campo_obj['opcoes'];
     
-    var_dump($opcoes);
+    // var_dump($opcoes);
    
     if($action == 'create'){
 
@@ -116,13 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }elseif($action == 'edit'){
         $id = $campo_obj['id_campo'];
-        echo $tipo;
+      
 
 
         
-            $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
+            //$sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
         
-            $edit_campo = mysqli_query($conexao, $sqlEditCampo);
+            //$edit_campo = mysqli_query($conexao, $sqlEditCampo);
             
 
             if($tipo == "um" || $tipo ="dois"){
@@ -130,25 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $sqlOpcoes = "SELECT COUNT(*) FROM `opcao` WHERE `id_campo_opcao` = $id";
                 $remove_opcoes = mysqli_query($conexao, $sqlOpcoes);
 
-                
+                var_dump($remove_opcoes);
                  
-
-
-
-                
-
-                
-
             }
-
-
-
-           
-
-            
-
-        
-        
 
        
     } 
@@ -757,7 +689,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          // Use AJAX para enviar o objeto para o PHP
                          $.ajax({
                             type: 'POST',
-                            url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                            url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                             data: {
                                 action: "create", 
                                 campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
@@ -915,36 +847,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
                 //remove campo
                 function removerCampo(button) {
-                    const campoContainer = button.closest(".novoCampo");
-                    const data_id = button.att(".novoCampo");
-                    campoContainer.remove();
-                   
-                    console.log("remove campo")
+                    const campoContainer = $(button).closest(".novoCampo");
+                    var data_id = campoContainer.attr('id');
+                                        
 
-                    const campo_obj = {
-                            nome: nome_campo,
-                            codigo_campo: '',
-                            acao: 'apagar',
-                            tipo: tipo_campo,
-                            ajuda: ajuda_campo,
-                            opcoes:'' 
-                        };
+
+                   
+                   
+                    console.log("remove campo", data_id)
+
+                   
                         
                          // Use AJAX para enviar o objeto para o PHP
-                         $.ajax({
+                        $.ajax({
                             type: 'POST',
-                            url: '', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                            url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                             data: {
-                                campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
+                                action: "apagarCampo", 
+                                idCampo: data_id,
                             },
                             success: function(response) {
-                                console.log("enviado");
-                                // Lida com a resposta do PHP, se necessário
+                                
+                                 campoContainer.remove();
+                            
                             },
                             error: function(error) {
                                 console.error(error);
                             }
-                    });
+                        });
 
 
 
