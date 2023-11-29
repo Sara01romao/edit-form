@@ -212,7 +212,7 @@ include './conexao.php';
                             <p>Adicione opções</p>
                         </div>
 
-                        
+                       
             
                     
             
@@ -906,10 +906,78 @@ include './conexao.php';
               
                 $('.form-edit-campo #tipo-campo-edit').val("tres").change();
                 
+                $('.msg-option').css('display','none')
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                    
+                    data: { 
+                        action: "buscaOption", 
+                        idCampo: idCampo,
+                         // Converta o objeto para uma string JSON
+                    },
+                    
+                    success: function(response) {
+                        console.log("enviado busca");
+
+                        
+                    
+                        // Lida com a resposta do PHP, se necessário
+                        var data = JSON.parse(response);
+
+                        console.log("Data", response)
+
+
+                        data.forEach(element => {
+                    
+                
+
+                            var optionItem = document.createElement('div');
+                            optionItem.classList.add('option-item')
+                        
+                                // Conteúdo HTML do novo item
+            
+                                
+                                optionItem.innerHTML = `
+                                    
+            
+                                        <input  type='text'  name='${element.nome_opcao}' value="${element.nome_opcao}">
+
+                                        <div class="btns-option">
+                                            
+                                            <button type="button" class="remove-option">X</button>
+                                        </div>
+                                        
+                                `;
+
+                            
+                            $('.option-lista-edit.editar-campo').append(optionItem);
+
+
+
+
+
+                        });
+
+                        // Conteúdo HTML do novo item
+
+                
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+                
+
                 
                 var option_campo_edit = selectElement.find("option");
                   
                 var lista_opcoes_edit = [];
+
+
+
 
                
 
@@ -919,36 +987,36 @@ include './conexao.php';
                 
                 console.log(lista_opcoes_edit, 'valores');
 
-                lista_opcoes_edit.forEach(element => {
+                // lista_opcoes_edit.forEach(element => {
                     
                 
 
-                    var optionItem = document.createElement('div');
-                    optionItem.classList.add('option-item')
+                //     var optionItem = document.createElement('div');
+                //     optionItem.classList.add('option-item')
                 
-                        // Conteúdo HTML do novo item
+                //         // Conteúdo HTML do novo item
     
                         
-                        optionItem.innerHTML = `
+                //         optionItem.innerHTML = `
                             
     
-                                <input  type='text'  name='${element}' value="${element}">
+                //                 <input  type='text'  name='${element}' value="${element}">
 
-                                <div class="btns-option">
+                //                 <div class="btns-option">
                                     
-                                    <button type="button" class="remove-option">X</button>
-                                </div>
+                //                     <button type="button" class="remove-option">X</button>
+                //                 </div>
                                 
-                        `;
+                //         `;
 
                     
-                    $('.option-lista-edit.editar-campo').append(optionItem);
+                //     $('.option-lista-edit.editar-campo').append(optionItem);
 
 
 
 
 
-                });
+                // });
 
                   //verifica qtd de option
                 if($('.option-lista-edit').find('.option-item').length !== 0){

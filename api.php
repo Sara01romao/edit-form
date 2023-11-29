@@ -205,6 +205,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         echo "deletar id: " . $id;
+
+    }elseif($action == 'buscaOption'){
+        $id = $_POST['idCampo'];
+        
+
+        $sqlCheckOpcoes = "SELECT COUNT(*) FROM `opcao` WHERE `id_campo_opcao` = $id";
+        $resultCheckOpcoes = mysqli_query($conexao, $sqlCheckOpcoes);
+
+        if ($resultCheckOpcoes) {
+            $row = mysqli_fetch_array($resultCheckOpcoes);
+            $optionCount = $row[0];
+
+            mysqli_free_result($resultCheckOpcoes); // Corrected typo in variable name
+
+            if ($optionCount > 0) {
+
+                $sqlBuscaOpcoes = "SELECT * FROM `opcao` WHERE `id_campo_opcao` = $id";
+                $busca_opcoes = mysqli_query($conexao, $sqlBuscaOpcoes);
+
+                $resultados = array();
+                while ($row = mysqli_fetch_assoc($busca_opcoes)) {
+                    $resultados[] = $row;
+                }
+
+                // Enviar os resultados como JSON para o frontend
+                echo json_encode($resultados);
+
+                
+            } 
+        } else {
+            // Handle the error for checking options
+            echo "Error checking options: " . mysqli_error($conexao);
+        }
+
+
+
+
+
+
     }
     
     
