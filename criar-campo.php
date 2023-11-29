@@ -211,6 +211,8 @@ include './conexao.php';
                         <div class="msg-option">
                             <p>Adicione opções</p>
                         </div>
+
+                        
             
                     
             
@@ -575,6 +577,14 @@ include './conexao.php';
                                 $('#tipo-campo').next('small').css('display', 'none');
                                 $('.option-container').css('display', 'none');
 
+                                Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: "Concluído",
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                });
+
                             },
                             error: function(error) {
                                 console.error(error);
@@ -659,6 +669,14 @@ include './conexao.php';
                                 $('#nome-campo').next('small').css('display', 'none');
                                 $('#tipo-campo').next('small').css('display', 'none');
 
+                                Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: "Concluído",
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                });
+
 
                             },
                             error: function(error) {
@@ -736,6 +754,14 @@ include './conexao.php';
                                 $('#nome-campo').next('small').css('display', 'none');
                                 $('#tipo-campo').next('small').css('display', 'none');
 
+                                Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: "Concluído",
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                });
+
                             },
                             error: function(error) {
                                 console.error(error);
@@ -788,9 +814,9 @@ include './conexao.php';
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#dd3333',
-                        cancelButtonColor: '#5cb85c',
-                        confirmButtonText: 'Sim, excluir',
-                        cancelButtonText: 'Não'
+                        cancelButtonColor: '#626262',
+                        confirmButtonText: 'Excluir',
+                        cancelButtonText: 'Cencelar'
                             }).then((result) => {
 
                                 if (result.isConfirmed) {
