@@ -428,9 +428,7 @@ include './conexao.php';
             
                 // Conteúdo HTML do novo item
                 novoItem.innerHTML = `
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#636363"/>
-                        </svg>
+                        
 
                         <input  type='text'  name='${option}' value="${option}">
 
@@ -1077,12 +1075,27 @@ include './conexao.php';
             
                 // Conteúdo HTML do novo item
                 novoItem.innerHTML = `
-                        <input  type='text'  name='${option}' value="${option}">
+                        
 
-                        <div class="btns-option">
-                            <button type='button'  class="remove-option">X</button>
-                        </div>
+                        <input  type='text'   name='${option}' value="${option}" disabled>
+
+                                        <div class="btns-option">
+                                            
+                                            <button type="button" class="editar-option">
+                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.95001 2.54937L11.4505 6.04997L3.84938 13.6514L0.728442 13.9959C0.31064 14.0421 -0.0423582 13.6888 0.00412498 13.271L0.351382 10.1478L7.95001 2.54937ZM13.6155 2.02819L11.9719 0.384528C11.4592 -0.128176 10.6277 -0.128176 10.115 0.384528L8.56878 1.93084L12.0692 5.43145L13.6155 3.88513C14.1282 3.37215 14.1282 2.54089 13.6155 2.02819Z" fill="#1C813C"/>
+                                                </svg>
+
+                                            </button>
+
+                                            <button type="button" class="salvar-editar-option">Salvar</button>
+
+                                            <button type="button" class="remove-option">X</button>
+                                        </div>
                 `;
+                
+                
+
 
 
                 $('.option-lista-edit').append(novoItem);
@@ -1122,14 +1135,27 @@ include './conexao.php';
             
         });
 
+
+         //salvar-option-edit
+
+        
+
         $('.option-lista-edit').on("click", ".salvar-editar-option", function(){
             
             $(this).closest('.option-item').find('input').prop('disabled', true);
             $(this).closest('.option-item').find('.editar-option').css('display', 'flex');
             $(this).css('display','none');
+
+
+
+
+            var valorDoInput = $(this).closest('.option-item').find('input').val();
+            console.log("Valor option:", valorDoInput);
             
         });
- 
+        
+
+       
 
         
         
