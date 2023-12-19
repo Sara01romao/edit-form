@@ -244,7 +244,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
+    }elseif($action == 'addOptionEdit'){
+        
+        $option_obj = json_decode($_POST['optionNovo'], true);
+
+        $idCampo = $option_obj['idCampo'];
+        $option = $option_obj['optionValor'];
+
+        echo "add option". $idCampo;
+         
+
+
+
+        
+
+        
+        $sqlOption = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$option', '$idCampo')";
+        $inserir_option = mysqli_query($conexao, $sqlOption);   
+
+        
+
+        $retorno = ['retorno' => 'OK'];
+        echo  json_encode($retorno);
+    
+    
+    
+    
     }
+
+
+    
     
     
 }

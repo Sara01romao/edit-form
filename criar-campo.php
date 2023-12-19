@@ -1063,12 +1063,23 @@ include './conexao.php';
         $('.add-option-edit').on("click", function(){
             
             var option= $('#input-option-edit').val();
+            
 
             if(!option){
                 console.log('vazio');
                 $('.option-lista-edit .msg-option').css('display','flex')
             }else{
-                console.log(option)
+
+                var idCampo = $('#id-campo').val();
+
+
+                const option_obj = {
+                                idCampo: idCampo,
+                                optionValor: option,
+                                
+                            };
+
+                
 
                 var novoItem = document.createElement('div');
                 novoItem.classList.add('option-item')
@@ -1094,7 +1105,31 @@ include './conexao.php';
                                         </div>
                 `;
                 
-                
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+                    data: {
+                        action: "addOptionEdit", 
+                        optionNovo: JSON.stringify(option_obj)
+                    },
+                    success: function(response) {
+                        
+                        Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Concluído",
+                                showConfirmButton: false,
+                                timer: 800
+                        });
+                        console.log(response);
+                    
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+        
 
 
 
