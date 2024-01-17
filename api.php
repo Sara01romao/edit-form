@@ -119,7 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }elseif($action == 'edit'){
         $campo_obj = json_decode($_POST['campo_obj'], true);
-
+         
+        
         $nome= $campo_obj['nome'];
         $tipo= $campo_obj['tipo'];
         $ajuda= $campo_obj['ajuda'];
@@ -130,9 +131,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         
             
-            
+            if ($tipo == "tres") {
 
-            if($tipo == "um" || $tipo ="dois"){
+                echo "edit select". $tipo;
+                
+                $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
+                $edit_campo = mysqli_query($conexao, $sqlEditCampo);
+                
+            }elseif($tipo == "um" || $tipo ="dois"){
                 
                 
                 $sqlCheckOpcoes = "SELECT COUNT(*) FROM `opcao` WHERE `id_campo_opcao` = $id";
@@ -161,14 +167,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Handle the error for checking options
                     echo "Error checking options: " . mysqli_error($conexao);
                 }
-            }else{
-                        $sqlEditCampo = "UPDATE `campo` SET `nome_campo`= '$nome', `tipo_campo`= '$tipo', `ajuda_campo`= '$ajuda' WHERE id_campo = $id ";
-                        $edit_campo = mysqli_query($conexao, $sqlEditCampo);
             }
+            
+            
+            
+            
 
 
           
-
+            
 
 
        
