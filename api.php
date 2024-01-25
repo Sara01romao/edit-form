@@ -258,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $idCampo = $option_obj['idCampo'];
         $option = $option_obj['optionValor'];
 
-        echo "add option". $idCampo;
+        
          
 
 
@@ -268,11 +268,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $sqlOption = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$option', '$idCampo')";
         $inserir_option = mysqli_query($conexao, $sqlOption);   
+        
+        $id = mysqli_insert_id($conexao);
+
+        $retorno = ['idNovo' => $id];
+        echo  json_encode($retorno);
+    
+    
+    
+    
+    }elseif($action == 'apagarOption'){
+        $id = $_POST['idOption'];
+
+        
+    
+        echo $id;
+
+        $sql_remove_option = "DELETE FROM `opcao` WHERE `id_opcao` = $id ";
+        $resultado_remove_option = mysqli_query($conexao, $sql_remove_option);   
+
+        
+        echo  json_encode("ok");
+
 
         
 
-        $retorno = ['retorno' => 'OK'];
-        echo  json_encode($retorno);
+        
+        // $sqlOption = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$option', '$idCampo')";
+        // $inserir_option = mysqli_query($conexao, $sqlOption);   
+        
+        // $id = mysqli_insert_id($conexao);
+
+        // $retorno = ['idNovo' => $id];
+        // echo  json_encode($retorno);
     
     
     
