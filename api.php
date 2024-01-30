@@ -294,21 +294,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
 
         
-        // $sqlOption = "INSERT INTO `opcao` (`nome_opcao`, `id_campo_opcao`) VALUES ('$option', '$idCampo')";
-        // $inserir_option = mysqli_query($conexao, $sqlOption);   
         
-        // $id = mysqli_insert_id($conexao);
+    
+    
+    
+    
+    } elseif($action == 'editOption'){
+         
+        $option= json_decode($_POST['option_obj'], true);
 
-        // $retorno = ['idNovo' => $id];
-        // echo  json_encode($retorno);
-    
-    
-    
-    
+        $id = $option['option_id'];
+        $optionValue = $option['option_value'];
+
+        
+        
+       
+        
+        $sqlOptionEdit = "UPDATE `opcao` SET `nome_opcao`='$optionValue' WHERE `id_opcao` = $id";
+        
+        $resultado_edit_option = mysqli_query($conexao, $sqlOptionEdit);  
+        
+        echo  json_encode("ok");
+
     }
-
-
-    
     
     
 }

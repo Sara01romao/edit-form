@@ -1227,31 +1227,33 @@ include './conexao.php';
             $(this).closest('.option-item').find('input').prop('disabled', true);
             $(this).closest('.option-item').find('.editar-option').css('display', 'flex');
             $(this).css('display','none');
-
-
-
-
+            
             var valorDoInput = $(this).closest('.option-item').find('input').val();
-            console.log("Valor option:", valorDoInput);
+            var optionId = $(this).data('id');
 
-            // const option_obj = {
-            //                     idCampo: idCampo,
-            //                     optionValor: option,
-                                
-            //                 };
+            var obj_Edit_Option = {
+                "option_id": optionId,
+                "option_value": valorDoInput 
+            }
+            console.log(obj_Edit_Option)
 
-
-            // $.ajax({
-            //     type: 'POST',
-            //     url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
+            $.ajax({
+                type: 'POST',
+                url: 'api.php', // Substitua 'sua_pagina.php' pelo caminho correto do seu script PHP
                 
-            //     data: { 
-            //         action: "edit", 
-            //         id_campo: id_campo,
-            //         campo_obj: JSON.stringify(campo_obj) // Converta o objeto para uma string JSON
-            //     },
+                data: { 
+                    action: "editOption", 
+                    option_obj: JSON.stringify(obj_Edit_Option) // Converta o objeto para uma string JSON
+                },
 
-            // });
+                success: function(response) {
+
+                     console.log('ok')
+
+
+                }
+
+            });
 
                 
             
