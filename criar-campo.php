@@ -1162,7 +1162,7 @@ include './conexao.php';
 
 
             
-            console.log('removeu', removeId)
+            
 
             Swal.fire({
                         title: 'Excluir campo',
@@ -1235,7 +1235,7 @@ include './conexao.php';
                 "option_id": optionId,
                 "option_value": valorDoInput 
             }
-            console.log(obj_Edit_Option)
+            console.table( obj_Edit_Option)
 
             $.ajax({
                 type: 'POST',
@@ -1248,7 +1248,7 @@ include './conexao.php';
 
                 success: function(response) {
 
-                     console.log('ok')
+                     console.log("response", response)
 
 
                 }
